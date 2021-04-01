@@ -1,0 +1,2736 @@
+{
+  "Add Action": {
+    "接口名称": "Add Action",
+    "路径": "/workflow/action/add",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "task_id",
+          "type_sid",
+          "type_id",
+          "data"
+        ],
+        "必填": [
+          "task_id",
+          "type_sid",
+          "type_id",
+          "data"
+        ],
+        "data": {
+          "返回": {
+            "所有字段": [
+              "id",
+              "count",
+              "device_name",
+              "device_group",
+              "capplanno",
+              "equipmentResilience",
+              "firewall",
+              "platform",
+              "remarks",
+              "serialNumber",
+              "applications"
+            ],
+            "必填": [
+              "id"
+            ],
+            "applications": "number[]"
+          },
+          "类型": "object[]"
+        }
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": []
+      }
+    }
+  },
+  "Decommission Device": {
+    "接口名称": "Decommission Device",
+    "路径": "/workflow/action/add/decommission",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "task_id",
+          "decommissionType",
+          "comment_info",
+          "devices"
+        ],
+        "必填": [
+          "task_id",
+          "devices"
+        ],
+        "devices": {
+          "返回": {
+            "所有字段": [
+              "id",
+              "capplanno",
+              "equipmentResilience",
+              "firewall",
+              "platform",
+              "remarks",
+              "serialNumber",
+              "applications"
+            ],
+            "必填": [
+              "id"
+            ]
+          },
+          "类型": "object[]"
+        }
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": []
+      }
+    }
+  },
+  "Install Existing Device": {
+    "接口名称": "Install Existing Device",
+    "路径": "/workflow/action/add/installExist",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "task_id",
+          "devices"
+        ],
+        "必填": [
+          "task_id",
+          "devices"
+        ],
+        "devices": {
+          "返回": {
+            "所有字段": [
+              "id",
+              "capplanno",
+              "equipmentResilience",
+              "firewall",
+              "platform",
+              "remarks",
+              "serialNumber",
+              "applications"
+            ],
+            "必填": [
+              "id"
+            ]
+          },
+          "类型": "object[]"
+        }
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": []
+      }
+    }
+  },
+  "Move Device": {
+    "接口名称": "Move Device",
+    "路径": "/workflow/action/add/move",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "task_id",
+          "devices"
+        ],
+        "必填": [
+          "task_id"
+        ],
+        "devices": {
+          "返回": {
+            "所有字段": [
+              "id",
+              "capplanno",
+              "equipmentResilience",
+              "firewall",
+              "platform",
+              "remarks",
+              "serialNumber",
+              "applications"
+            ],
+            "必填": []
+          },
+          "类型": "object[]"
+        }
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": []
+      }
+    }
+  },
+  "Save Project Right Access": {
+    "接口名称": "Save Project Right Access",
+    "路径": "/workflow/project/{id}/right/access/save",
+    "类型": "POST",
+    "请求body": {
+      "返回": {
+        "所有字段": [
+          "id",
+          "cid",
+          "view",
+          "edit",
+          "delete"
+        ],
+        "必填": [
+          "id",
+          "cid"
+        ]
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code"
+        ]
+      }
+    }
+  },
+  "Submit For Work Order": {
+    "接口名称": "Submit For Work Order",
+    "路径": "/workflow/workorder/{id}/submit",
+    "类型": "GET",
+    "请求body": "",
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Get Project Right Accesses": {
+    "接口名称": "Get Project Right Accesses",
+    "路径": "/workflow/project/{id}/right/access",
+    "类型": "GET",
+    "请求body": "",
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ],
+        "data": {
+          "返回": {
+            "所有字段": [
+              "id",
+              "cid",
+              "name",
+              "view",
+              "edit",
+              "delete"
+            ],
+            "必填": [
+              "id",
+              "cid",
+              "name",
+              "view",
+              "edit",
+              "delete"
+            ]
+          },
+          "类型": "object[]"
+        }
+      }
+    }
+  },
+  "Get Task Right Accesses": {
+    "接口名称": "Get Task Right Accesses",
+    "路径": "/workflow/task/{id}/right/access",
+    "类型": "GET",
+    "请求body": "",
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ],
+        "data": {
+          "返回": {
+            "所有字段": [
+              "id",
+              "cid",
+              "name",
+              "view",
+              "edit",
+              "delete"
+            ],
+            "必填": [
+              "id",
+              "cid",
+              "name",
+              "view",
+              "edit",
+              "delete"
+            ]
+          },
+          "类型": "object[]"
+        }
+      }
+    }
+  },
+  "Save Task Right Access": {
+    "接口名称": "Save Task Right Access",
+    "路径": "/workflow/task/{id}/right/access/save",
+    "类型": "POST",
+    "请求body": {
+      "返回": {
+        "所有字段": [
+          "id",
+          "cid",
+          "view",
+          "edit",
+          "delete"
+        ],
+        "必填": [
+          "id",
+          "cid"
+        ]
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code"
+        ]
+      }
+    }
+  },
+  "Save Action Attributes": {
+    "接口名称": "Save Action Attributes",
+    "路径": "/workflow/action/attributes/save",
+    "类型": "POST",
+    "请求body": {
+      "返回": {
+        "所有字段": [
+          "actionId",
+          "deviceId",
+          "applications",
+          "attributes"
+        ],
+        "必填": [
+          "deviceId",
+          "actionId"
+        ],
+        "applications": "number[]",
+        "attributes": {
+          "返回": {
+            "所有字段": [
+              "id",
+              "action",
+              "value"
+            ],
+            "必填": [
+              "id",
+              "action",
+              "value"
+            ]
+          },
+          "类型": "object[]"
+        }
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": []
+      }
+    }
+  },
+  "Get Decommission Q&A": {
+    "接口名称": "Get Decommission Q&A",
+    "路径": "/workflow/decommissionQA",
+    "类型": "GET",
+    "请求body": "",
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ],
+        "data": {
+          "返回": {
+            "所有字段": [
+              "id",
+              "question",
+              "optional",
+              "answer"
+            ],
+            "必填": [
+              "id",
+              "question",
+              "optional",
+              "answer"
+            ],
+            "answer": {
+              "返回": {
+                "所有字段": [
+                  "name",
+                  "showText"
+                ],
+                "必填": [
+                  "name",
+                  "showText"
+                ]
+              },
+              "类型": "object[]"
+            }
+          },
+          "类型": "object[]"
+        }
+      }
+    }
+  },
+  "Get Project List": {
+    "接口名称": "Get Project List",
+    "路径": "/workflow/projects",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "page_idx",
+          "page_size",
+          "sorts",
+          "filters"
+        ],
+        "sorts": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "value"
+            ]
+          },
+          "类型": "object[]"
+        },
+        "filters": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "action",
+              "value"
+            ]
+          }
+        }
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Get Task List": {
+    "接口名称": "Get Task List",
+    "路径": "/workflow/tasks",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "page_idx",
+          "page_size",
+          "sorts"
+        ],
+        "sorts": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "value"
+            ]
+          },
+          "类型": "object[]"
+        }
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Get Work Order List": {
+    "接口名称": "Get Work Order List",
+    "路径": "/workflow/workorders",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "page_idx",
+          "page_size",
+          "filters",
+          "sorts"
+        ],
+        "filters": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "action",
+              "value"
+            ]
+          }
+        },
+        "sorts": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "value"
+            ]
+          },
+          "类型": "object[]"
+        }
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Download Work Order PDF": {
+    "接口名称": "Download Work Order PDF",
+    "路径": "/workflow/workorders/download",
+    "类型": "GET",
+    "请求body": "",
+    "返回数据": {
+      "返回": {
+        "所有字段": []
+      }
+    }
+  },
+  "Get Project Approvals": {
+    "接口名称": "Get Project Approvals",
+    "路径": "/workflow/project/{id}/approvers",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "page_idx",
+          "page_size",
+          "sorts",
+          "filters"
+        ],
+        "sorts": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "value"
+            ]
+          },
+          "类型": "object[]"
+        },
+        "filters": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "action",
+              "value"
+            ]
+          }
+        }
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Get Allowed Approval For Project": {
+    "接口名称": "Get Allowed Approval For Project",
+    "路径": "/workflow/project/{id}/new/approvers",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "page_idx",
+          "page_size",
+          "sorts"
+        ],
+        "sorts": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "value"
+            ]
+          },
+          "类型": "object[]"
+        }
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Get Allowed Watcher For Project": {
+    "接口名称": "Get Allowed Watcher For Project",
+    "路径": "/workflow/project/{id}/new/watchers",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "page_idx",
+          "page_size",
+          "sorts"
+        ],
+        "sorts": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "value"
+            ]
+          },
+          "类型": "object[]"
+        }
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Add Project Approval Or Watcher": {
+    "接口名称": "Add Project Approval Or Watcher",
+    "路径": "/workflow/project/approvers/add",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "project_id",
+          "type",
+          "data"
+        ],
+        "data": "string[]"
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": []
+      }
+    }
+  },
+  "Delete Project Approval Or Watcher": {
+    "接口名称": "Delete Project Approval Or Watcher",
+    "路径": "/workflow/project/approvers/delete",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "project_id",
+          "data"
+        ],
+        "data": {
+          "返回": {
+            "所有字段": [
+              "id",
+              "is_group",
+              "type"
+            ]
+          },
+          "类型": "object[]"
+        }
+      }
+    },
+    "返回数据": ""
+  },
+  "Get Project Tasks With Actions": {
+    "接口名称": "Get Project Tasks With Actions",
+    "路径": "/workflow/project/{projectId}/tasks",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "sorts",
+          "page_idx",
+          "page_size"
+        ],
+        "sorts": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "value"
+            ]
+          },
+          "类型": "object[]"
+        }
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Get Project Comments": {
+    "接口名称": "Get Project Comments",
+    "路径": "/workflow/project/{projectId}/comments",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": []
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Install New Device": {
+    "接口名称": "Install New Device",
+    "路径": "/workflow/action/add/new",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "task_id",
+          "data"
+        ],
+        "必填": [
+          "task_id",
+          "data"
+        ],
+        "data": {
+          "返回": {
+            "所有字段": [
+              "id",
+              "count",
+              "device_name",
+              "device_group",
+              "capplanno",
+              "equipmentResilience",
+              "firewall",
+              "platform",
+              "remarks",
+              "serialNumber",
+              "applications"
+            ],
+            "必填": [
+              "id",
+              "count"
+            ],
+            "applications": "number[]"
+          },
+          "类型": "object[]"
+        }
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": []
+      }
+    }
+  },
+  "Add Project Comment": {
+    "接口名称": "Add Project Comment",
+    "路径": "/workflow/project/{projectId}/comment/add",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "comment_info",
+          "users"
+        ],
+        "users": "string[]"
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Get Project Basic Info": {
+    "接口名称": "Get Project Basic Info",
+    "路径": "/workflow/project/{projectId}",
+    "类型": "GET",
+    "请求body": "",
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Delete Projects": {
+    "接口名称": "Delete Projects",
+    "路径": "/workflow/project/delete/{ids}",
+    "类型": "DELETE",
+    "请求body": "",
+    "返回数据": {
+      "返回": {
+        "所有字段": []
+      }
+    }
+  },
+  "Save Project": {
+    "接口名称": "Save Project",
+    "路径": "/workflow/project/addormodify",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "id",
+          "name",
+          "owner_id",
+          "number",
+          "reversion_number",
+          "department_id",
+          "start_time",
+          "end_time",
+          "expired",
+          "department_name",
+          "owner_name"
+        ],
+        "必填": [
+          "name",
+          "owner_id",
+          "number",
+          "department_id",
+          "start_time",
+          "end_time"
+        ]
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Get Task Info": {
+    "接口名称": "Get Task Info",
+    "路径": "/workflow/task/{taskId}",
+    "类型": "GET",
+    "请求body": "",
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Get Task Comments": {
+    "接口名称": "Get Task Comments",
+    "路径": "/workflow/task/{taskId}/comments",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": []
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Add Task Comment": {
+    "接口名称": "Add Task Comment",
+    "路径": "/workflow/task/{taskId}/comment/add",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "comment_info",
+          "users"
+        ],
+        "users": "string[]"
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Get Task Approval": {
+    "接口名称": "Get Task Approval",
+    "路径": "/workflow/task/{taskId}/approvers",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "page_idx",
+          "page_size",
+          "filters",
+          "sorts"
+        ],
+        "filters": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "action",
+              "value"
+            ]
+          }
+        },
+        "sorts": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "value"
+            ]
+          },
+          "类型": "object[]"
+        }
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Get Work Order Info": {
+    "接口名称": "Get Work Order Info",
+    "路径": "/workflow/workorder/{workorderId}",
+    "类型": "GET",
+    "请求body": "",
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Get Task Actions": {
+    "接口名称": "Get Task Actions",
+    "路径": "/workflow/task/{taskId}/actions",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "page_idx",
+          "page_size",
+          "sorts",
+          "filters"
+        ],
+        "sorts": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "value"
+            ]
+          },
+          "类型": "object[]"
+        },
+        "filters": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "action",
+              "value"
+            ]
+          }
+        }
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Approve Project": {
+    "接口名称": "Approve Project",
+    "路径": "/workflow/project/{projectId}/approve",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": []
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": []
+      }
+    }
+  },
+  "Reject Project": {
+    "接口名称": "Reject Project",
+    "路径": "/workflow/project/{projectId}/reject",
+    "类型": "POST",
+    "请求body": "",
+    "返回数据": ""
+  },
+  "Submit For Approval Project": {
+    "接口名称": "Submit For Approval Project",
+    "路径": "/workflow/project/{projectId}/submitForApproval",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": []
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Delete Project Tasks": {
+    "接口名称": "Delete Project Tasks",
+    "路径": "/workflow/project/{projectId}/tasks/delete",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "task",
+          "action"
+        ],
+        "task": "string[]",
+        "action": "string[]"
+      }
+    },
+    "返回数据": ""
+  },
+  "Save Tasks": {
+    "接口名称": "Save Tasks",
+    "路径": "/workflow/task/addormodify",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "id",
+          "name",
+          "project_id"
+        ],
+        "必填": [
+          "name",
+          "project_id"
+        ]
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Get Action Class": {
+    "接口名称": "Get Action Class",
+    "路径": "/workflow/action/classes",
+    "类型": "GET",
+    "请求body": "",
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ],
+        "data": {
+          "返回": {
+            "所有字段": [
+              "name",
+              "id",
+              "sid"
+            ]
+          },
+          "类型": "object[]"
+        }
+      }
+    }
+  },
+  "Get Device Used By Workflow": {
+    "接口名称": "Get Device Used By Workflow",
+    "路径": "/workflow/action/useddevice",
+    "类型": "GET",
+    "请求body": "",
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ],
+        "data": "number[]"
+      }
+    }
+  },
+  "Submit For Approval Task": {
+    "接口名称": "Submit For Approval Task",
+    "路径": "/workflow/task/{taskId}/submitForApproval",
+    "类型": "POST",
+    "请求body": "",
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Add Task Approval": {
+    "接口名称": "Add Task Approval",
+    "路径": "/workflow/task/{taskId}/approval/add",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "assigneed",
+          "escalate",
+          "sla"
+        ],
+        "必填": [
+          "assigneed",
+          "escalate",
+          "sla"
+        ]
+      }
+    },
+    "返回数据": ""
+  },
+  "Delete Task Approvals": {
+    "接口名称": "Delete Task Approvals",
+    "路径": "/workflow/task/{taskId}/approval/delete/{ids}",
+    "类型": "DELETE",
+    "请求body": "",
+    "返回数据": ""
+  },
+  "Get Assignee Available": {
+    "接口名称": "Get Assignee Available",
+    "路径": "/workflow/task/{taskId}/assigneed/available",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "page_idx",
+          "page_size",
+          "sorts",
+          "filters"
+        ],
+        "sorts": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "value"
+            ]
+          },
+          "类型": "object[]"
+        },
+        "filters": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "action",
+              "value"
+            ]
+          }
+        }
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Get Escalate Available": {
+    "接口名称": "Get Escalate Available",
+    "路径": "/workflow/task/{taskId}/escalate/available",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "page_idx",
+          "page_size",
+          "sorts",
+          "filters"
+        ],
+        "sorts": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "value"
+            ]
+          },
+          "类型": "object[]"
+        },
+        "filters": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "action",
+              "value"
+            ]
+          }
+        }
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Stop Task": {
+    "接口名称": "Stop Task",
+    "路径": "/workflow/task/{taskId}/stop",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": []
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": []
+      }
+    }
+  },
+  "Resume Task": {
+    "接口名称": "Resume Task",
+    "路径": "/workflow/task/{taskId}/resume",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": []
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": []
+      }
+    }
+  },
+  "Get Auto Plan Location": {
+    "接口名称": "Get Auto Plan Location",
+    "路径": "/workflow/autoPlan/location",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "page_idx",
+          "page_size",
+          "sorts",
+          "filters"
+        ],
+        "sorts": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "value"
+            ]
+          },
+          "类型": "object[]"
+        },
+        "filters": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "action",
+              "value"
+            ]
+          }
+        }
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Get Auto Plan Rack Group": {
+    "接口名称": "Get Auto Plan Rack Group",
+    "路径": "/workflow/autoPlan/rackGroup",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "page_idx",
+          "page_size",
+          "sorts",
+          "filters"
+        ],
+        "sorts": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "value"
+            ]
+          },
+          "类型": "object[]"
+        },
+        "filters": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "action",
+              "value"
+            ]
+          }
+        }
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Auto Plan Device": {
+    "接口名称": "Auto Plan Device",
+    "路径": "/workflow/autoPlan/planDevice",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "project_id",
+          "actions",
+          "ports",
+          "source"
+        ],
+        "必填": [
+          "project_id",
+          "actions",
+          "ports",
+          "source"
+        ],
+        "actions": {
+          "返回": {
+            "所有字段": [
+              "id",
+              "position"
+            ],
+            "必填": [
+              "id"
+            ]
+          },
+          "类型": "object[]"
+        },
+        "ports": "string[]"
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": []
+      }
+    }
+  },
+  "Change Auto Plan Target Rack": {
+    "接口名称": "Change Auto Plan Target Rack",
+    "路径": "/workflow/autoPlan/planResultRack",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "project_id",
+          "actions",
+          "source"
+        ],
+        "actions": {
+          "返回": {
+            "所有字段": [
+              "id",
+              "position"
+            ]
+          },
+          "类型": "object[]"
+        }
+      }
+    },
+    "返回数据": ""
+  },
+  "Change Auto Plan Target U Position": {
+    "接口名称": "Change Auto Plan Target U Position",
+    "路径": "/workflow/autoPlan/planResultPosition",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "project_id",
+          "actions",
+          "uposition"
+        ],
+        "actions": {
+          "返回": {
+            "所有字段": [
+              "id"
+            ]
+          },
+          "类型": "object[]"
+        }
+      }
+    },
+    "返回数据": ""
+  },
+  "Get Available Enclosure Model By Blade": {
+    "接口名称": "Get Available Enclosure Model By Blade",
+    "路径": "/workflow/autoPlan/enclosure/model/{ids}",
+    "类型": "GET",
+    "请求body": "",
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ],
+        "data": "string[]"
+      }
+    }
+  },
+  "Get Auto Plan Failed Detail": {
+    "接口名称": "Get Auto Plan Failed Detail",
+    "路径": "/workflow/autoPlan/{actionId}/failedResult",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "page_idx",
+          "page_size",
+          "sorts",
+          "filters"
+        ],
+        "sorts": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "value"
+            ]
+          },
+          "类型": "object[]"
+        },
+        "filters": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "action",
+              "value"
+            ]
+          }
+        }
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Clear Auto Plan Result": {
+    "接口名称": "Clear Auto Plan Result",
+    "路径": "/workflow/autoPlan/{actionId}/clear",
+    "类型": "DELETE",
+    "请求body": "",
+    "返回数据": {
+      "返回": {
+        "所有字段": []
+      }
+    }
+  },
+  "Get Auto Plan Success Result": {
+    "接口名称": "Get Auto Plan Success Result",
+    "路径": "/workflow/autoPlan/{actionId}/successResult",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "page_idx",
+          "page_size",
+          "sorts",
+          "filters"
+        ],
+        "sorts": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "value"
+            ]
+          },
+          "类型": "object[]"
+        },
+        "filters": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "action",
+              "value"
+            ]
+          }
+        }
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Get Project Work Order List": {
+    "接口名称": "Get Project Work Order List",
+    "路径": "/workflow/project/{projectId}/workorders",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "page_idx",
+          "page_size",
+          "sorts",
+          "filters"
+        ],
+        "sorts": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "value"
+            ]
+          },
+          "类型": "object[]"
+        },
+        "filters": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "action",
+              "value"
+            ]
+          }
+        }
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Reserve Actions": {
+    "接口名称": "Reserve Actions",
+    "路径": "/workflow/project/{projectId}/reserve/actions",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "actions"
+        ],
+        "必填": [
+          "actions"
+        ],
+        "actions": "string[]"
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": []
+      }
+    }
+  },
+  "Approve Task": {
+    "接口名称": "Approve Task",
+    "路径": "/workflow/task/{taskId}/approve",
+    "类型": "POST",
+    "请求body": "",
+    "返回数据": ""
+  },
+  "Approve Task By Admin": {
+    "接口名称": "Approve Task By Admin",
+    "路径": "/workflow/task/{taskId}/approveTask",
+    "类型": "POST",
+    "请求body": "",
+    "返回数据": ""
+  },
+  "Reject Task": {
+    "接口名称": "Reject Task",
+    "路径": "/workflow/task/{taskId}/reject",
+    "类型": "POST",
+    "请求body": "",
+    "返回数据": ""
+  },
+  "Delete Project Work Order": {
+    "接口名称": "Delete Project Work Order",
+    "路径": "/workflow/project/{projectId}/workorders/delete",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "item",
+          "workorder"
+        ],
+        "item": "string[]",
+        "workorder": "string[]"
+      }
+    },
+    "返回数据": ""
+  },
+  "Submit Project Work Order": {
+    "接口名称": "Submit Project Work Order",
+    "路径": "/workflow/project/{projectId}/workorders/submit",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "workorder"
+        ],
+        "workorder": "string[]"
+      }
+    },
+    "返回数据": ""
+  },
+  "Start Project Work Order Items": {
+    "接口名称": "Start Project Work Order Items",
+    "路径": "/workflow/project/{projectId}/workorders/start",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "item"
+        ],
+        "item": "string[]"
+      }
+    },
+    "返回数据": ""
+  },
+  "Stop Project Work Order Items": {
+    "接口名称": "Stop Project Work Order Items",
+    "路径": "/workflow/project/{projectId}/workorders/stop",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "item"
+        ],
+        "item": "string[]"
+      }
+    },
+    "返回数据": ""
+  },
+  "Reject Project Work Order Items": {
+    "接口名称": "Reject Project Work Order Items",
+    "路径": "/workflow/project/{projectId}/workorders/reject",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "item"
+        ],
+        "item": "string[]"
+      }
+    },
+    "返回数据": ""
+  },
+  "Complete Project Work Order Items": {
+    "接口名称": "Complete Project Work Order Items",
+    "路径": "/workflow/project/{projectId}/workorders/complete",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "item"
+        ],
+        "item": "string[]"
+      }
+    },
+    "返回数据": ""
+  },
+  "Get Device Projects": {
+    "接口名称": "Get Device Projects",
+    "路径": "/workflow/device/{deviceId}/projects",
+    "类型": "POST",
+    "请求body": "",
+    "返回数据": ""
+  },
+  "Export Action": {
+    "接口名称": "Export Action",
+    "路径": "/workflow/task/{taskId}/actionExport",
+    "类型": "GET",
+    "请求body": "",
+    "返回数据": ""
+  },
+  "Import Action": {
+    "接口名称": "Import Action",
+    "路径": "/workflow/task/actionImport",
+    "类型": "POST",
+    "请求body": "",
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "import_id",
+          "success",
+          "count",
+          "addcount",
+          "updatecount",
+          "devices",
+          "detail",
+          "info"
+        ],
+        "devices": {
+          "返回": {
+            "所有字段": [
+              "action",
+              "device_name",
+              "type_name",
+              "vendor_name",
+              "pline_name",
+              "model_name"
+            ]
+          },
+          "类型": "object[]"
+        },
+        "info": {
+          "返回": {
+            "所有字段": [
+              "sheet_name",
+              "row_idx",
+              "message"
+            ]
+          },
+          "类型": "object[]"
+        }
+      }
+    }
+  },
+  "Confirm Import Action": {
+    "接口名称": "Confirm Import Action",
+    "路径": "/workflow/task/{taskId}/actionImport/comfirm",
+    "类型": "GET",
+    "请求body": "",
+    "返回数据": {
+      "返回": {
+        "所有字段": []
+      }
+    }
+  },
+  "Get Work Order Items": {
+    "接口名称": "Get Work Order Items",
+    "路径": "/workflow/workorder/{woId}/items",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "page_idx",
+          "page_size",
+          "sorts",
+          "filters"
+        ],
+        "sorts": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "value"
+            ]
+          },
+          "类型": "object[]"
+        },
+        "filters": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "action",
+              "value"
+            ]
+          }
+        }
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Save Work Order": {
+    "接口名称": "Save Work Order",
+    "路径": "/workflow/workorder/save",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "id",
+          "project_id",
+          "name",
+          "number",
+          "sub_actor"
+        ],
+        "必填": [
+          "project_id",
+          "name",
+          "number"
+        ]
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Get Work Order Approval Available": {
+    "接口名称": "Get Work Order Approval Available",
+    "路径": "/workflow/workorder/approval/available",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "page_idx",
+          "page_size",
+          "sorts",
+          "filters"
+        ],
+        "sorts": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "value"
+            ]
+          },
+          "类型": "object[]"
+        },
+        "filters": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "action",
+              "value"
+            ]
+          }
+        }
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Get Project Available Action": {
+    "接口名称": "Get Project Available Action",
+    "路径": "/workflow/project/{projectId}/action/available",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "page_idx",
+          "page_size",
+          "sorts",
+          "filters"
+        ],
+        "sorts": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "value"
+            ]
+          },
+          "类型": "object[]"
+        },
+        "filters": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "action",
+              "value"
+            ]
+          }
+        }
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Add Work Order Item": {
+    "接口名称": "Add Work Order Item",
+    "路径": "/workflow/workorder/{woId}/items/add",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "items"
+        ],
+        "items": {
+          "返回": {
+            "所有字段": [
+              "action_id",
+              "name",
+              "assignee_id",
+              "escalate_id",
+              "sla"
+            ]
+          },
+          "类型": "object[]"
+        }
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": []
+      }
+    }
+  },
+  "Preview Work Order PDF": {
+    "接口名称": "Preview Work Order PDF",
+    "路径": "/workflow/workorder/{woId}/preview",
+    "类型": "GET",
+    "请求body": "",
+    "返回数据": ""
+  },
+  "Get Work Order Actor Available": {
+    "接口名称": "Get Work Order Actor Available",
+    "路径": "/workflow/workorder/submitActor/available",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "page_idx",
+          "page_size",
+          "sorts",
+          "filters"
+        ],
+        "sorts": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "value"
+            ]
+          },
+          "类型": "object[]"
+        },
+        "filters": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "action",
+              "value"
+            ]
+          }
+        }
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Generate Work Order Number": {
+    "接口名称": "Generate Work Order Number",
+    "路径": "/workflow/workorder/number",
+    "类型": "GET",
+    "请求body": "",
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "number"
+        ],
+        "必填": [
+          "number"
+        ]
+      }
+    }
+  },
+  "Get Activity Projects": {
+    "接口名称": "Get Activity Projects",
+    "路径": "/workflow/activity/projects",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "page_idx",
+          "page_size",
+          "sorts",
+          "filters"
+        ],
+        "sorts": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "value"
+            ]
+          },
+          "类型": "object[]"
+        },
+        "filters": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "action",
+              "value"
+            ]
+          }
+        }
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Get Activity Task": {
+    "接口名称": "Get Activity Task",
+    "路径": "/workflow/activity/tasks",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "page_idx",
+          "page_size",
+          "sorts",
+          "filters"
+        ],
+        "sorts": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "value"
+            ]
+          },
+          "类型": "object[]"
+        },
+        "filters": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "action",
+              "value"
+            ]
+          }
+        }
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Get Activity Work Order": {
+    "接口名称": "Get Activity Work Order",
+    "路径": "/workflow/activity/workorders",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "page_idx",
+          "page_size",
+          "sorts",
+          "filters"
+        ],
+        "sorts": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "value"
+            ]
+          },
+          "类型": "object[]"
+        },
+        "filters": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "action",
+              "value"
+            ]
+          }
+        }
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Get Activity Pending Action": {
+    "接口名称": "Get Activity Pending Action",
+    "路径": "/workflow/activity/pendingAction",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "page_idx",
+          "page_size",
+          "sorts",
+          "filters"
+        ],
+        "sorts": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "value"
+            ]
+          },
+          "类型": "object[]"
+        },
+        "filters": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "action",
+              "value"
+            ]
+          }
+        }
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Add Work Order Item Comment": {
+    "接口名称": "Add Work Order Item Comment",
+    "路径": "/workflow/workorder/item/{itemId}/addComment",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "message",
+          "users"
+        ],
+        "必填": [
+          "message"
+        ],
+        "users": "string[]"
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ],
+        "data": {
+          "返回": {
+            "所有字段": [
+              "comDate",
+              "user",
+              "content",
+              "date"
+            ]
+          },
+          "类型": "object[]"
+        }
+      }
+    }
+  },
+  "Get Work Order Item Comments": {
+    "接口名称": "Get Work Order Item Comments",
+    "路径": "/workflow/workorder/item/{itemId}/comments",
+    "类型": "GET",
+    "请求body": "",
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ],
+        "data": {
+          "返回": {
+            "所有字段": [
+              "comDate",
+              "user",
+              "content",
+              "date"
+            ]
+          },
+          "类型": "object[]"
+        }
+      }
+    }
+  },
+  "Get Project Basic Info By Number": {
+    "接口名称": "Get Project Basic Info By Number",
+    "路径": "/workflow/projectByNumber/{projectNumber}",
+    "类型": "GET",
+    "请求body": "",
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Get Work Order Info By Number": {
+    "接口名称": "Get Work Order Info By Number",
+    "路径": "/workflow/workorderByNumber/{workorderNumber}",
+    "类型": "GET",
+    "请求body": "",
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Get Work Order Items By Work Order Number": {
+    "接口名称": "Get Work Order Items By Work Order Number",
+    "路径": "/workflow/workorderNumber/{woNumber}/items",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "page_idx",
+          "page_size",
+          "sorts",
+          "filters"
+        ],
+        "sorts": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "value"
+            ]
+          },
+          "类型": "object[]"
+        },
+        "filters": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "action",
+              "value"
+            ]
+          }
+        }
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Get Auto Plan Connections": {
+    "接口名称": "Get Auto Plan Connections",
+    "路径": "/workflow/autoPlan/{actionId}/connections",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "page_idx",
+          "page_size",
+          "sorts",
+          "filters"
+        ],
+        "sorts": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "value"
+            ]
+          },
+          "类型": "object[]"
+        },
+        "filters": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "action",
+              "value"
+            ]
+          }
+        }
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Change Auto Plan Connection": {
+    "接口名称": "Change Auto Plan Connection",
+    "路径": "/workflow/autoPlan/changeConnections",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "cables",
+          "actionId"
+        ],
+        "必填": [
+          "actionId"
+        ],
+        "cables": {
+          "返回": {
+            "所有字段": [
+              "typeId",
+              "name",
+              "reserved",
+              "providers",
+              "consumers"
+            ],
+            "必填": [
+              "typeId",
+              "name",
+              "providers",
+              "consumers"
+            ],
+            "providers": {
+              "返回": {
+                "所有字段": [
+                  "deviceId",
+                  "path",
+                  "type",
+                  "deviceName",
+                  "name"
+                ]
+              },
+              "类型": "object[]"
+            },
+            "consumers": {
+              "返回": {
+                "所有字段": [
+                  "deviceId",
+                  "path",
+                  "type",
+                  "deviceName",
+                  "name"
+                ]
+              },
+              "类型": "object[]"
+            }
+          },
+          "类型": "object[]"
+        }
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": []
+      }
+    }
+  },
+  "Plan Floor Device": {
+    "接口名称": "Plan Floor Device",
+    "路径": "/workflow/autoPlan/planFloorDevice",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "project_id",
+          "actions"
+        ],
+        "必填": [
+          "project_id",
+          "actions"
+        ],
+        "actions": {
+          "返回": {
+            "所有字段": [
+              "id",
+              "area_id",
+              "pid",
+              "docking",
+              "area_name",
+              "row",
+              "column",
+              "main_area_id"
+            ],
+            "必填": [
+              "id"
+            ]
+          },
+          "类型": "object[]"
+        }
+      }
+    },
+    "返回数据": ""
+  },
+  "Get Available Port": {
+    "接口名称": "Get Available Port",
+    "路径": "/workflow/autoPlan/availablePort",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "action_id",
+          "device_id",
+          "port_id",
+          "connect_device_id"
+        ]
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Change Auto Plan Connection Port": {
+    "接口名称": "Change Auto Plan Connection Port",
+    "路径": "/workflow/autoPlan/designConnection",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "action_id",
+          "device_id",
+          "device_name",
+          "ports",
+          "attributes"
+        ],
+        "必填": [
+          "action_id",
+          "device_id",
+          "device_name",
+          "ports"
+        ],
+        "ports": {
+          "返回": {
+            "所有字段": [
+              "port_uri",
+              "connect_device_id",
+              "connect_device_name",
+              "connect_port_uri"
+            ]
+          },
+          "类型": "object[]"
+        },
+        "attributes": {
+          "返回": {
+            "所有字段": [
+              "gateway",
+              "ip",
+              "subnet",
+              "vlan",
+              "portSpeed",
+              "description"
+            ]
+          },
+          "类型": "object[]"
+        }
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": []
+      }
+    }
+  },
+  "Get Project Attribute List": {
+    "接口名称": "Get Project Attribute List",
+    "路径": "/workflow/project/{projectId}/attributes",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "page_idx",
+          "page_size",
+          "sorts",
+          "filters",
+          "exclusion"
+        ],
+        "必填": [],
+        "sorts": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "value"
+            ]
+          },
+          "类型": "object[]"
+        },
+        "filters": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "action",
+              "value"
+            ]
+          }
+        }
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Add Project Attributes": {
+    "接口名称": "Add Project Attributes",
+    "路径": "/workflow/project/{projectId}/attributes/add",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "vnames"
+        ],
+        "vnames": "string[]"
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": []
+      }
+    }
+  },
+  "Remove Project Attributes": {
+    "接口名称": "Remove Project Attributes",
+    "路径": "/workflow/project/{projectId}/attributes/remove",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "vnames"
+        ],
+        "vnames": "string[]"
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": []
+      }
+    }
+  },
+  "Edit Project Attributes": {
+    "接口名称": "Edit Project Attributes",
+    "路径": "/workflow/project/{projectId}/attributes/submit",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "data"
+        ],
+        "data": {
+          "返回": {
+            "所有字段": [
+              "vname",
+              "value"
+            ],
+            "必填": [
+              "vname",
+              "value"
+            ]
+          },
+          "类型": "object[]"
+        }
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": []
+      }
+    }
+  },
+  "Get Location Work Orders": {
+    "接口名称": "Get Location Work Orders",
+    "路径": "/workflow/location/workorders",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "page_idx",
+          "page_size",
+          "sorts",
+          "filters"
+        ],
+        "sorts": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "value"
+            ]
+          },
+          "类型": "object[]"
+        },
+        "filters": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "action",
+              "value"
+            ]
+          }
+        }
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Generate Project Number": {
+    "接口名称": "Generate Project Number",
+    "路径": "/workflow/project/number",
+    "类型": "GET",
+    "请求body": "",
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  },
+  "Get User And Group": {
+    "接口名称": "Get User And Group",
+    "路径": "/workflow/users",
+    "类型": "POST",
+    "请求body": {
+      "请求": {
+        "所有字段": [
+          "page_idx",
+          "page_size",
+          "sorts",
+          "filters"
+        ],
+        "sorts": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "value"
+            ]
+          },
+          "类型": "object[]"
+        },
+        "filters": {
+          "返回": {
+            "所有字段": [
+              "key",
+              "action",
+              "value"
+            ]
+          }
+        }
+      }
+    },
+    "返回数据": {
+      "返回": {
+        "所有字段": [
+          "code",
+          "data"
+        ]
+      }
+    }
+  }
+}
