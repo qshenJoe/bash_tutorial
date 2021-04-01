@@ -1,0 +1,1441 @@
+接口名称: 1 - Add Action 
+路径: /workflow/action/add 
+类型: POST 
+请求： 
+所有字段: 
+task_id
+type_sid
+type_id
+data
+
+必填: 
+task_id
+type_sid
+type_id
+data
+
+data: 
+ {"返回":{"所有字段":["id","count","device_name","device_group","capplanno","equipmentResilience","firewall","platform","remarks","serialNumber","applications"],"必填":["id"],"applications":"number[]"},"类型":"object[]"} 
+返回: {"返回":{"所有字段":[]}} 
+-------------------------------------
+
+接口名称: 2 - Decommission Device 
+路径: /workflow/action/add/decommission 
+类型: POST 
+请求： 
+所有字段: 
+task_id
+decommissionType
+comment_info
+devices
+
+必填: 
+task_id
+devices
+
+devices: 
+ {"返回":{"所有字段":["id","capplanno","equipmentResilience","firewall","platform","remarks","serialNumber","applications"],"必填":["id"]},"类型":"object[]"} 
+返回: {"返回":{"所有字段":[]}} 
+-------------------------------------
+
+接口名称: 3 - Install Existing Device 
+路径: /workflow/action/add/installExist 
+类型: POST 
+请求： 
+所有字段: 
+task_id
+devices
+
+必填: 
+task_id
+devices
+
+devices: 
+ {"返回":{"所有字段":["id","capplanno","equipmentResilience","firewall","platform","remarks","serialNumber","applications"],"必填":["id"]},"类型":"object[]"} 
+返回: {"返回":{"所有字段":[]}} 
+-------------------------------------
+
+接口名称: 4 - Move Device 
+路径: /workflow/action/add/move 
+类型: POST 
+请求： 
+所有字段: 
+task_id
+devices
+
+必填: 
+task_id
+
+devices: 
+ {"返回":{"所有字段":["id","capplanno","equipmentResilience","firewall","platform","remarks","serialNumber","applications"],"必填":[]},"类型":"object[]"} 
+返回: {"返回":{"所有字段":[]}} 
+-------------------------------------
+
+接口名称: 5 - Save Project Right Access 
+路径: /workflow/project/{id}/right/access/save 
+类型: POST 
+请求： 
+ 
+返回: {"返回":{"所有字段":["code"]}} 
+-------------------------------------
+
+接口名称: 6 - Submit For Work Order 
+路径: /workflow/workorder/{id}/submit 
+类型: GET 
+请求：  
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 7 - Get Project Right Accesses 
+路径: /workflow/project/{id}/right/access 
+类型: GET 
+请求：  
+返回: {"返回":{"所有字段":["code","data"],"data":{"返回":{"所有字段":["id","cid","name","view","edit","delete"],"必填":["id","cid","name","view","edit","delete"]},"类型":"object[]"}}} 
+-------------------------------------
+
+接口名称: 8 - Get Task Right Accesses 
+路径: /workflow/task/{id}/right/access 
+类型: GET 
+请求：  
+返回: {"返回":{"所有字段":["code","data"],"data":{"返回":{"所有字段":["id","cid","name","view","edit","delete"],"必填":["id","cid","name","view","edit","delete"]},"类型":"object[]"}}} 
+-------------------------------------
+
+接口名称: 9 - Save Task Right Access 
+路径: /workflow/task/{id}/right/access/save 
+类型: POST 
+请求： 
+ 
+返回: {"返回":{"所有字段":["code"]}} 
+-------------------------------------
+
+接口名称: 10 - Save Action Attributes 
+路径: /workflow/action/attributes/save 
+类型: POST 
+请求： 
+ 
+返回: {"返回":{"所有字段":[]}} 
+-------------------------------------
+
+接口名称: 11 - Get Decommission Q&A 
+路径: /workflow/decommissionQA 
+类型: GET 
+请求：  
+返回: {"返回":{"所有字段":["code","data"],"data":{"返回":{"所有字段":["id","question","optional","answer"],"必填":["id","question","optional","answer"],"answer":{"返回":{"所有字段":["name","showText"],"必填":["name","showText"]},"类型":"object[]"}},"类型":"object[]"}}} 
+-------------------------------------
+
+接口名称: 12 - Get Project List 
+路径: /workflow/projects 
+类型: POST 
+请求： 
+所有字段: 
+page_idx
+page_size
+sorts
+filters
+
+必填: 
+
+
+sorts: 
+ {"返回":{"所有字段":["key","value"]},"类型":"object[]"}
+filters: 
+ {"返回":{"所有字段":["key","action","value"]}} 
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 13 - Get Task List 
+路径: /workflow/tasks 
+类型: POST 
+请求： 
+所有字段: 
+page_idx
+page_size
+sorts
+
+必填: 
+
+
+sorts: 
+ {"返回":{"所有字段":["key","value"]},"类型":"object[]"} 
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 14 - Get Work Order List 
+路径: /workflow/workorders 
+类型: POST 
+请求： 
+所有字段: 
+page_idx
+page_size
+filters
+sorts
+
+必填: 
+
+
+filters: 
+ {"返回":{"所有字段":["key","action","value"]}}
+sorts: 
+ {"返回":{"所有字段":["key","value"]},"类型":"object[]"} 
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 15 - Download Work Order PDF 
+路径: /workflow/workorders/download 
+类型: GET 
+请求：  
+返回: {"返回":{"所有字段":[]}} 
+-------------------------------------
+
+接口名称: 16 - Get Project Approvals 
+路径: /workflow/project/{id}/approvers 
+类型: POST 
+请求： 
+所有字段: 
+page_idx
+page_size
+sorts
+filters
+
+必填: 
+
+
+sorts: 
+ {"返回":{"所有字段":["key","value"]},"类型":"object[]"}
+filters: 
+ {"返回":{"所有字段":["key","action","value"]}} 
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 17 - Get Allowed Approval For Project 
+路径: /workflow/project/{id}/new/approvers 
+类型: POST 
+请求： 
+所有字段: 
+page_idx
+page_size
+sorts
+
+必填: 
+
+
+sorts: 
+ {"返回":{"所有字段":["key","value"]},"类型":"object[]"} 
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 18 - Get Allowed Watcher For Project 
+路径: /workflow/project/{id}/new/watchers 
+类型: POST 
+请求： 
+所有字段: 
+page_idx
+page_size
+sorts
+
+必填: 
+
+
+sorts: 
+ {"返回":{"所有字段":["key","value"]},"类型":"object[]"} 
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 19 - Add Project Approval Or Watcher 
+路径: /workflow/project/approvers/add 
+类型: POST 
+请求： 
+所有字段: 
+project_id
+type
+data
+
+必填: 
+
+
+data: 
+ "string[]" 
+返回: {"返回":{"所有字段":[]}} 
+-------------------------------------
+
+接口名称: 20 - Delete Project Approval Or Watcher 
+路径: /workflow/project/approvers/delete 
+类型: POST 
+请求： 
+所有字段: 
+project_id
+data
+
+必填: 
+
+
+data: 
+ {"返回":{"所有字段":["id","is_group","type"]},"类型":"object[]"} 
+返回: "" 
+-------------------------------------
+
+接口名称: 21 - Get Project Tasks With Actions 
+路径: /workflow/project/{projectId}/tasks 
+类型: POST 
+请求： 
+所有字段: 
+sorts
+page_idx
+page_size
+
+必填: 
+
+
+sorts: 
+ {"返回":{"所有字段":["key","value"]},"类型":"object[]"} 
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 22 - Get Project Comments 
+路径: /workflow/project/{projectId}/comments 
+类型: POST 
+请求： 
+所有字段: 
+
+
+必填: 
+
+ 
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 23 - Install New Device 
+路径: /workflow/action/add/new 
+类型: POST 
+请求： 
+所有字段: 
+task_id
+data
+
+必填: 
+task_id
+data
+
+data: 
+ {"返回":{"所有字段":["id","count","device_name","device_group","capplanno","equipmentResilience","firewall","platform","remarks","serialNumber","applications"],"必填":["id","count"],"applications":"number[]"},"类型":"object[]"} 
+返回: {"返回":{"所有字段":[]}} 
+-------------------------------------
+
+接口名称: 24 - Add Project Comment 
+路径: /workflow/project/{projectId}/comment/add 
+类型: POST 
+请求： 
+所有字段: 
+comment_info
+users
+
+必填: 
+
+
+users: 
+ "string[]" 
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 25 - Get Project Basic Info 
+路径: /workflow/project/{projectId} 
+类型: GET 
+请求：  
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 26 - Delete Projects 
+路径: /workflow/project/delete/{ids} 
+类型: DELETE 
+请求：  
+返回: {"返回":{"所有字段":[]}} 
+-------------------------------------
+
+接口名称: 27 - Save Project 
+路径: /workflow/project/addormodify 
+类型: POST 
+请求： 
+所有字段: 
+id
+name
+owner_id
+number
+reversion_number
+department_id
+start_time
+end_time
+expired
+department_name
+owner_name
+
+必填: 
+name
+owner_id
+number
+department_id
+start_time
+end_time
+ 
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 28 - Get Task Info 
+路径: /workflow/task/{taskId} 
+类型: GET 
+请求：  
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 29 - Get Task Comments 
+路径: /workflow/task/{taskId}/comments 
+类型: POST 
+请求： 
+所有字段: 
+
+
+必填: 
+
+ 
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 30 - Add Task Comment 
+路径: /workflow/task/{taskId}/comment/add 
+类型: POST 
+请求： 
+所有字段: 
+comment_info
+users
+
+必填: 
+
+
+users: 
+ "string[]" 
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 31 - Get Task Approval 
+路径: /workflow/task/{taskId}/approvers 
+类型: POST 
+请求： 
+所有字段: 
+page_idx
+page_size
+filters
+sorts
+
+必填: 
+
+
+filters: 
+ {"返回":{"所有字段":["key","action","value"]}}
+sorts: 
+ {"返回":{"所有字段":["key","value"]},"类型":"object[]"} 
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 32 - Get Work Order Info 
+路径: /workflow/workorder/{workorderId} 
+类型: GET 
+请求：  
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 33 - Get Task Actions 
+路径: /workflow/task/{taskId}/actions 
+类型: POST 
+请求： 
+所有字段: 
+page_idx
+page_size
+sorts
+filters
+
+必填: 
+
+
+sorts: 
+ {"返回":{"所有字段":["key","value"]},"类型":"object[]"}
+filters: 
+ {"返回":{"所有字段":["key","action","value"]}} 
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 34 - Approve Project 
+路径: /workflow/project/{projectId}/approve 
+类型: POST 
+请求： 
+所有字段: 
+
+
+必填: 
+
+ 
+返回: {"返回":{"所有字段":[]}} 
+-------------------------------------
+
+接口名称: 35 - Reject Project 
+路径: /workflow/project/{projectId}/reject 
+类型: POST 
+请求：  
+返回: "" 
+-------------------------------------
+
+接口名称: 36 - Submit For Approval Project 
+路径: /workflow/project/{projectId}/submitForApproval 
+类型: POST 
+请求： 
+所有字段: 
+
+
+必填: 
+
+ 
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 37 - Delete Project Tasks 
+路径: /workflow/project/{projectId}/tasks/delete 
+类型: POST 
+请求： 
+所有字段: 
+task
+action
+
+必填: 
+
+
+task: 
+ "string[]"
+action: 
+ "string[]" 
+返回: "" 
+-------------------------------------
+
+接口名称: 38 - Save Tasks 
+路径: /workflow/task/addormodify 
+类型: POST 
+请求： 
+所有字段: 
+id
+name
+project_id
+
+必填: 
+name
+project_id
+ 
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 39 - Get Action Class 
+路径: /workflow/action/classes 
+类型: GET 
+请求：  
+返回: {"返回":{"所有字段":["code","data"],"data":{"返回":{"所有字段":["name","id","sid"]},"类型":"object[]"}}} 
+-------------------------------------
+
+接口名称: 40 - Get Device Used By Workflow 
+路径: /workflow/action/useddevice 
+类型: GET 
+请求：  
+返回: {"返回":{"所有字段":["code","data"],"data":"number[]"}} 
+-------------------------------------
+
+接口名称: 41 - Submit For Approval Task 
+路径: /workflow/task/{taskId}/submitForApproval 
+类型: POST 
+请求：  
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 42 - Add Task Approval 
+路径: /workflow/task/{taskId}/approval/add 
+类型: POST 
+请求： 
+所有字段: 
+assigneed
+escalate
+sla
+
+必填: 
+assigneed
+escalate
+sla
+ 
+返回: "" 
+-------------------------------------
+
+接口名称: 43 - Delete Task Approvals 
+路径: /workflow/task/{taskId}/approval/delete/{ids} 
+类型: DELETE 
+请求：  
+返回: "" 
+-------------------------------------
+
+接口名称: 44 - Get Assignee Available 
+路径: /workflow/task/{taskId}/assigneed/available 
+类型: POST 
+请求： 
+所有字段: 
+page_idx
+page_size
+sorts
+filters
+
+必填: 
+
+
+sorts: 
+ {"返回":{"所有字段":["key","value"]},"类型":"object[]"}
+filters: 
+ {"返回":{"所有字段":["key","action","value"]}} 
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 45 - Get Escalate Available 
+路径: /workflow/task/{taskId}/escalate/available 
+类型: POST 
+请求： 
+所有字段: 
+page_idx
+page_size
+sorts
+filters
+
+必填: 
+
+
+sorts: 
+ {"返回":{"所有字段":["key","value"]},"类型":"object[]"}
+filters: 
+ {"返回":{"所有字段":["key","action","value"]}} 
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 46 - Stop Task 
+路径: /workflow/task/{taskId}/stop 
+类型: POST 
+请求： 
+所有字段: 
+
+
+必填: 
+
+ 
+返回: {"返回":{"所有字段":[]}} 
+-------------------------------------
+
+接口名称: 47 - Resume Task 
+路径: /workflow/task/{taskId}/resume 
+类型: POST 
+请求： 
+所有字段: 
+
+
+必填: 
+
+ 
+返回: {"返回":{"所有字段":[]}} 
+-------------------------------------
+
+接口名称: 48 - Get Auto Plan Location 
+路径: /workflow/autoPlan/location 
+类型: POST 
+请求： 
+所有字段: 
+page_idx
+page_size
+sorts
+filters
+
+必填: 
+
+
+sorts: 
+ {"返回":{"所有字段":["key","value"]},"类型":"object[]"}
+filters: 
+ {"返回":{"所有字段":["key","action","value"]}} 
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 49 - Get Auto Plan Rack Group 
+路径: /workflow/autoPlan/rackGroup 
+类型: POST 
+请求： 
+所有字段: 
+page_idx
+page_size
+sorts
+filters
+
+必填: 
+
+
+sorts: 
+ {"返回":{"所有字段":["key","value"]},"类型":"object[]"}
+filters: 
+ {"返回":{"所有字段":["key","action","value"]}} 
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 50 - Auto Plan Device 
+路径: /workflow/autoPlan/planDevice 
+类型: POST 
+请求： 
+所有字段: 
+project_id
+actions
+ports
+source
+
+必填: 
+project_id
+actions
+ports
+source
+
+actions: 
+ {"返回":{"所有字段":["id","position"],"必填":["id"]},"类型":"object[]"}
+ports: 
+ "string[]" 
+返回: {"返回":{"所有字段":[]}} 
+-------------------------------------
+
+接口名称: 51 - Change Auto Plan Target Rack 
+路径: /workflow/autoPlan/planResultRack 
+类型: POST 
+请求： 
+所有字段: 
+project_id
+actions
+source
+
+必填: 
+
+
+actions: 
+ {"返回":{"所有字段":["id","position"]},"类型":"object[]"} 
+返回: "" 
+-------------------------------------
+
+接口名称: 52 - Change Auto Plan Target U Position 
+路径: /workflow/autoPlan/planResultPosition 
+类型: POST 
+请求： 
+所有字段: 
+project_id
+actions
+uposition
+
+必填: 
+
+
+actions: 
+ {"返回":{"所有字段":["id"]},"类型":"object[]"} 
+返回: "" 
+-------------------------------------
+
+接口名称: 53 - Get Available Enclosure Model By Blade 
+路径: /workflow/autoPlan/enclosure/model/{ids} 
+类型: GET 
+请求：  
+返回: {"返回":{"所有字段":["code","data"],"data":"string[]"}} 
+-------------------------------------
+
+接口名称: 54 - Get Auto Plan Failed Detail 
+路径: /workflow/autoPlan/{actionId}/failedResult 
+类型: POST 
+请求： 
+所有字段: 
+page_idx
+page_size
+sorts
+filters
+
+必填: 
+
+
+sorts: 
+ {"返回":{"所有字段":["key","value"]},"类型":"object[]"}
+filters: 
+ {"返回":{"所有字段":["key","action","value"]}} 
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 55 - Clear Auto Plan Result 
+路径: /workflow/autoPlan/{actionId}/clear 
+类型: DELETE 
+请求：  
+返回: {"返回":{"所有字段":[]}} 
+-------------------------------------
+
+接口名称: 56 - Get Auto Plan Success Result 
+路径: /workflow/autoPlan/{actionId}/successResult 
+类型: POST 
+请求： 
+所有字段: 
+page_idx
+page_size
+sorts
+filters
+
+必填: 
+
+
+sorts: 
+ {"返回":{"所有字段":["key","value"]},"类型":"object[]"}
+filters: 
+ {"返回":{"所有字段":["key","action","value"]}} 
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 57 - Get Project Work Order List 
+路径: /workflow/project/{projectId}/workorders 
+类型: POST 
+请求： 
+所有字段: 
+page_idx
+page_size
+sorts
+filters
+
+必填: 
+
+
+sorts: 
+ {"返回":{"所有字段":["key","value"]},"类型":"object[]"}
+filters: 
+ {"返回":{"所有字段":["key","action","value"]}} 
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 58 - Reserve Actions 
+路径: /workflow/project/{projectId}/reserve/actions 
+类型: POST 
+请求： 
+所有字段: 
+actions
+
+必填: 
+actions
+
+actions: 
+ "string[]" 
+返回: {"返回":{"所有字段":[]}} 
+-------------------------------------
+
+接口名称: 59 - Approve Task 
+路径: /workflow/task/{taskId}/approve 
+类型: POST 
+请求：  
+返回: "" 
+-------------------------------------
+
+接口名称: 60 - Approve Task By Admin 
+路径: /workflow/task/{taskId}/approveTask 
+类型: POST 
+请求：  
+返回: "" 
+-------------------------------------
+
+接口名称: 61 - Reject Task 
+路径: /workflow/task/{taskId}/reject 
+类型: POST 
+请求：  
+返回: "" 
+-------------------------------------
+
+接口名称: 62 - Delete Project Work Order 
+路径: /workflow/project/{projectId}/workorders/delete 
+类型: POST 
+请求： 
+所有字段: 
+item
+workorder
+
+必填: 
+
+
+item: 
+ "string[]"
+workorder: 
+ "string[]" 
+返回: "" 
+-------------------------------------
+
+接口名称: 63 - Submit Project Work Order 
+路径: /workflow/project/{projectId}/workorders/submit 
+类型: POST 
+请求： 
+所有字段: 
+workorder
+
+必填: 
+
+
+workorder: 
+ "string[]" 
+返回: "" 
+-------------------------------------
+
+接口名称: 64 - Start Project Work Order Items 
+路径: /workflow/project/{projectId}/workorders/start 
+类型: POST 
+请求： 
+所有字段: 
+item
+
+必填: 
+
+
+item: 
+ "string[]" 
+返回: "" 
+-------------------------------------
+
+接口名称: 65 - Stop Project Work Order Items 
+路径: /workflow/project/{projectId}/workorders/stop 
+类型: POST 
+请求： 
+所有字段: 
+item
+
+必填: 
+
+
+item: 
+ "string[]" 
+返回: "" 
+-------------------------------------
+
+接口名称: 66 - Reject Project Work Order Items 
+路径: /workflow/project/{projectId}/workorders/reject 
+类型: POST 
+请求： 
+所有字段: 
+item
+
+必填: 
+
+
+item: 
+ "string[]" 
+返回: "" 
+-------------------------------------
+
+接口名称: 67 - Complete Project Work Order Items 
+路径: /workflow/project/{projectId}/workorders/complete 
+类型: POST 
+请求： 
+所有字段: 
+item
+
+必填: 
+
+
+item: 
+ "string[]" 
+返回: "" 
+-------------------------------------
+
+接口名称: 68 - Get Device Projects 
+路径: /workflow/device/{deviceId}/projects 
+类型: POST 
+请求：  
+返回: "" 
+-------------------------------------
+
+接口名称: 69 - Export Action 
+路径: /workflow/task/{taskId}/actionExport 
+类型: GET 
+请求：  
+返回: "" 
+-------------------------------------
+
+接口名称: 70 - Import Action 
+路径: /workflow/task/actionImport 
+类型: POST 
+请求：  
+返回: {"返回":{"所有字段":["import_id","success","count","addcount","updatecount","devices","detail","info"],"devices":{"返回":{"所有字段":["action","device_name","type_name","vendor_name","pline_name","model_name"]},"类型":"object[]"},"info":{"返回":{"所有字段":["sheet_name","row_idx","message"]},"类型":"object[]"}}} 
+-------------------------------------
+
+接口名称: 71 - Confirm Import Action 
+路径: /workflow/task/{taskId}/actionImport/comfirm 
+类型: GET 
+请求：  
+返回: {"返回":{"所有字段":[]}} 
+-------------------------------------
+
+接口名称: 72 - Get Work Order Items 
+路径: /workflow/workorder/{woId}/items 
+类型: POST 
+请求： 
+所有字段: 
+page_idx
+page_size
+sorts
+filters
+
+必填: 
+
+
+sorts: 
+ {"返回":{"所有字段":["key","value"]},"类型":"object[]"}
+filters: 
+ {"返回":{"所有字段":["key","action","value"]}} 
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 73 - Save Work Order 
+路径: /workflow/workorder/save 
+类型: POST 
+请求： 
+所有字段: 
+id
+project_id
+name
+number
+sub_actor
+
+必填: 
+project_id
+name
+number
+ 
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 74 - Get Work Order Approval Available 
+路径: /workflow/workorder/approval/available 
+类型: POST 
+请求： 
+所有字段: 
+page_idx
+page_size
+sorts
+filters
+
+必填: 
+
+
+sorts: 
+ {"返回":{"所有字段":["key","value"]},"类型":"object[]"}
+filters: 
+ {"返回":{"所有字段":["key","action","value"]}} 
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 75 - Get Project Available Action 
+路径: /workflow/project/{projectId}/action/available 
+类型: POST 
+请求： 
+所有字段: 
+page_idx
+page_size
+sorts
+filters
+
+必填: 
+
+
+sorts: 
+ {"返回":{"所有字段":["key","value"]},"类型":"object[]"}
+filters: 
+ {"返回":{"所有字段":["key","action","value"]}} 
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 76 - Add Work Order Item 
+路径: /workflow/workorder/{woId}/items/add 
+类型: POST 
+请求： 
+所有字段: 
+items
+
+必填: 
+
+
+items: 
+ {"返回":{"所有字段":["action_id","name","assignee_id","escalate_id","sla"]},"类型":"object[]"} 
+返回: {"返回":{"所有字段":[]}} 
+-------------------------------------
+
+接口名称: 77 - Preview Work Order PDF 
+路径: /workflow/workorder/{woId}/preview 
+类型: GET 
+请求：  
+返回: "" 
+-------------------------------------
+
+接口名称: 78 - Get Work Order Actor Available 
+路径: /workflow/workorder/submitActor/available 
+类型: POST 
+请求： 
+所有字段: 
+page_idx
+page_size
+sorts
+filters
+
+必填: 
+
+
+sorts: 
+ {"返回":{"所有字段":["key","value"]},"类型":"object[]"}
+filters: 
+ {"返回":{"所有字段":["key","action","value"]}} 
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 79 - Generate Work Order Number 
+路径: /workflow/workorder/number 
+类型: GET 
+请求：  
+返回: {"返回":{"所有字段":["number"],"必填":["number"]}} 
+-------------------------------------
+
+接口名称: 80 - Get Activity Projects 
+路径: /workflow/activity/projects 
+类型: POST 
+请求： 
+所有字段: 
+page_idx
+page_size
+sorts
+filters
+
+必填: 
+
+
+sorts: 
+ {"返回":{"所有字段":["key","value"]},"类型":"object[]"}
+filters: 
+ {"返回":{"所有字段":["key","action","value"]}} 
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 81 - Get Activity Task 
+路径: /workflow/activity/tasks 
+类型: POST 
+请求： 
+所有字段: 
+page_idx
+page_size
+sorts
+filters
+
+必填: 
+
+
+sorts: 
+ {"返回":{"所有字段":["key","value"]},"类型":"object[]"}
+filters: 
+ {"返回":{"所有字段":["key","action","value"]}} 
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 82 - Get Activity Work Order 
+路径: /workflow/activity/workorders 
+类型: POST 
+请求： 
+所有字段: 
+page_idx
+page_size
+sorts
+filters
+
+必填: 
+
+
+sorts: 
+ {"返回":{"所有字段":["key","value"]},"类型":"object[]"}
+filters: 
+ {"返回":{"所有字段":["key","action","value"]}} 
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 83 - Get Activity Pending Action 
+路径: /workflow/activity/pendingAction 
+类型: POST 
+请求： 
+所有字段: 
+page_idx
+page_size
+sorts
+filters
+
+必填: 
+
+
+sorts: 
+ {"返回":{"所有字段":["key","value"]},"类型":"object[]"}
+filters: 
+ {"返回":{"所有字段":["key","action","value"]}} 
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 84 - Add Work Order Item Comment 
+路径: /workflow/workorder/item/{itemId}/addComment 
+类型: POST 
+请求： 
+所有字段: 
+message
+users
+
+必填: 
+message
+
+users: 
+ "string[]" 
+返回: {"返回":{"所有字段":["code","data"],"data":{"返回":{"所有字段":["comDate","user","content","date"]},"类型":"object[]"}}} 
+-------------------------------------
+
+接口名称: 85 - Get Work Order Item Comments 
+路径: /workflow/workorder/item/{itemId}/comments 
+类型: GET 
+请求：  
+返回: {"返回":{"所有字段":["code","data"],"data":{"返回":{"所有字段":["comDate","user","content","date"]},"类型":"object[]"}}} 
+-------------------------------------
+
+接口名称: 86 - Get Project Basic Info By Number 
+路径: /workflow/projectByNumber/{projectNumber} 
+类型: GET 
+请求：  
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 87 - Get Work Order Info By Number 
+路径: /workflow/workorderByNumber/{workorderNumber} 
+类型: GET 
+请求：  
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 88 - Get Work Order Items By Work Order Number 
+路径: /workflow/workorderNumber/{woNumber}/items 
+类型: POST 
+请求： 
+所有字段: 
+page_idx
+page_size
+sorts
+filters
+
+必填: 
+
+
+sorts: 
+ {"返回":{"所有字段":["key","value"]},"类型":"object[]"}
+filters: 
+ {"返回":{"所有字段":["key","action","value"]}} 
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 89 - Get Auto Plan Connections 
+路径: /workflow/autoPlan/{actionId}/connections 
+类型: POST 
+请求： 
+所有字段: 
+page_idx
+page_size
+sorts
+filters
+
+必填: 
+
+
+sorts: 
+ {"返回":{"所有字段":["key","value"]},"类型":"object[]"}
+filters: 
+ {"返回":{"所有字段":["key","action","value"]}} 
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 90 - Change Auto Plan Connection 
+路径: /workflow/autoPlan/changeConnections 
+类型: POST 
+请求： 
+所有字段: 
+cables
+actionId
+
+必填: 
+actionId
+
+cables: 
+ {"返回":{"所有字段":["typeId","name","reserved","providers","consumers"],"必填":["typeId","name","providers","consumers"],"providers":{"返回":{"所有字段":["deviceId","path","type","deviceName","name"]},"类型":"object[]"},"consumers":{"返回":{"所有字段":["deviceId","path","type","deviceName","name"]},"类型":"object[]"}},"类型":"object[]"} 
+返回: {"返回":{"所有字段":[]}} 
+-------------------------------------
+
+接口名称: 91 - Plan Floor Device 
+路径: /workflow/autoPlan/planFloorDevice 
+类型: POST 
+请求： 
+所有字段: 
+project_id
+actions
+
+必填: 
+project_id
+actions
+
+actions: 
+ {"返回":{"所有字段":["id","area_id","pid","docking","area_name","row","column","main_area_id"],"必填":["id"]},"类型":"object[]"} 
+返回: "" 
+-------------------------------------
+
+接口名称: 92 - Get Available Port 
+路径: /workflow/autoPlan/availablePort 
+类型: POST 
+请求： 
+所有字段: 
+action_id
+device_id
+port_id
+connect_device_id
+
+必填: 
+
+ 
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 93 - Change Auto Plan Connection Port 
+路径: /workflow/autoPlan/designConnection 
+类型: POST 
+请求： 
+所有字段: 
+action_id
+device_id
+device_name
+ports
+attributes
+
+必填: 
+action_id
+device_id
+device_name
+ports
+
+ports: 
+ {"返回":{"所有字段":["port_uri","connect_device_id","connect_device_name","connect_port_uri"]},"类型":"object[]"}
+attributes: 
+ {"返回":{"所有字段":["gateway","ip","subnet","vlan","portSpeed","description"]},"类型":"object[]"} 
+返回: {"返回":{"所有字段":[]}} 
+-------------------------------------
+
+接口名称: 94 - Get Project Attribute List 
+路径: /workflow/project/{projectId}/attributes 
+类型: POST 
+请求： 
+所有字段: 
+page_idx
+page_size
+sorts
+filters
+exclusion
+
+必填: 
+
+
+sorts: 
+ {"返回":{"所有字段":["key","value"]},"类型":"object[]"}
+filters: 
+ {"返回":{"所有字段":["key","action","value"]}} 
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 95 - Add Project Attributes 
+路径: /workflow/project/{projectId}/attributes/add 
+类型: POST 
+请求： 
+所有字段: 
+vnames
+
+必填: 
+
+
+vnames: 
+ "string[]" 
+返回: {"返回":{"所有字段":[]}} 
+-------------------------------------
+
+接口名称: 96 - Remove Project Attributes 
+路径: /workflow/project/{projectId}/attributes/remove 
+类型: POST 
+请求： 
+所有字段: 
+vnames
+
+必填: 
+
+
+vnames: 
+ "string[]" 
+返回: {"返回":{"所有字段":[]}} 
+-------------------------------------
+
+接口名称: 97 - Edit Project Attributes 
+路径: /workflow/project/{projectId}/attributes/submit 
+类型: POST 
+请求： 
+所有字段: 
+data
+
+必填: 
+
+
+data: 
+ {"返回":{"所有字段":["vname","value"],"必填":["vname","value"]},"类型":"object[]"} 
+返回: {"返回":{"所有字段":[]}} 
+-------------------------------------
+
+接口名称: 98 - Get Location Work Orders 
+路径: /workflow/location/workorders 
+类型: POST 
+请求： 
+所有字段: 
+page_idx
+page_size
+sorts
+filters
+
+必填: 
+
+
+sorts: 
+ {"返回":{"所有字段":["key","value"]},"类型":"object[]"}
+filters: 
+ {"返回":{"所有字段":["key","action","value"]}} 
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 99 - Generate Project Number 
+路径: /workflow/project/number 
+类型: GET 
+请求：  
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
+接口名称: 100 - Get User And Group 
+路径: /workflow/users 
+类型: POST 
+请求： 
+所有字段: 
+page_idx
+page_size
+sorts
+filters
+
+必填: 
+
+
+sorts: 
+ {"返回":{"所有字段":["key","value"]},"类型":"object[]"}
+filters: 
+ {"返回":{"所有字段":["key","action","value"]}} 
+返回: {"返回":{"所有字段":["code","data"]}} 
+-------------------------------------
+
