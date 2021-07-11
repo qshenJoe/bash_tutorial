@@ -19,6 +19,7 @@ export interface InputModel {
   circuitIdx: number;
   numOfPhase: number;
 }
+
 const INPUT_DOUBLE_135 = [
   {
     circuitIdx: 1,
@@ -29,7 +30,7 @@ const INPUT_DOUBLE_135 = [
     numOfPhase: 2,
   },
   {
-    circuitIdx: 6,
+    circuitIdx: 16,
     numOfPhase: 1,
   },
   {
@@ -38,6 +39,21 @@ const INPUT_DOUBLE_135 = [
   },
   {
     circuitIdx: 13,
+    numOfPhase: 3,
+  },
+];
+
+const INPUT_DOUBLE_123 = [
+  {
+    circuitIdx: 1,
+    numOfPhase: 3,
+  },
+  {
+    circuitIdx: 4,
+    numOfPhase: 3,
+  },
+  {
+    circuitIdx: 55,
     numOfPhase: 3,
   },
 ];
@@ -52,6 +68,12 @@ const INPUT_SINGLE = [
     numOfPhase: 3,
   },
 ];
+
+export const INPUT_SOURCE = {
+  INPUT_SINGLE: INPUT_SINGLE,
+  INPUT_DOUBLE_135: INPUT_DOUBLE_135,
+  INPUT_DOUBLE_123: INPUT_DOUBLE_123,
+};
 
 const ROW_MODE = {
   SINGLE: 1,
@@ -80,37 +102,21 @@ export const getPreviewData = (
 } => {
   const code = 1;
   const mid_data = [];
-  const {
-    quantity,
-    circuits,
-    numOfPhase,
-    startIndex,
-    rowMode,
-    numberType,
-  } = config;
+  const { quantity, circuits, numOfPhase, startIndex, rowMode, numberType } =
+    config;
   if (rowMode === ROW_MODE.SINGLE) {
     /**
      * [Step 1] initialize middle data
      */
-    for (let i = 0; i < circuits; i++) {
-      mid_data.push({
-        idx1: i + 1,
-        phase: getPhaseByIndex(i),
-        leftIsNew: false,
-        leftUsed: false,
-        rightUsed: false,
-        rightIsNew: false,
-        leftConflict: false,
-        rightConflict: false,
-      });
-    }
+    initData(mid_data, circuits, rowMode);
+    console.log('[MID after Step 1]', mid_data);
 
     /**
      * [Step 2] fill in middle data with used breakers
      * ! assuming input data is always valid
      */
-    placeUsedBreaker(input, mid_data);
-    console.log('mid', mid_data);
+    placeUsedBreaker(input, mid_data, circuits, rowMode);
+    console.log('[MID after Step 2]', mid_data);
 
     /**
      * [Step 3] fill in middle data with new breakers
@@ -124,7 +130,7 @@ export const getPreviewData = (
       },
       mid_data
     );
-    console.log('mid 2', mid_data);
+    console.log('[MID after Step 3]', mid_data);
 
     checkConflict(mid_data);
     return {
@@ -132,6 +138,57 @@ export const getPreviewData = (
       data: mid_data,
     };
   } else if (rowMode === ROW_MODE.DOUBLE) {
+    if (numberType === NUMBER_TYPE.VERT) {
+      // step 1
+      initData(mid_data, circuits, rowMode);
+      console.log('[MID after Step 1]', mid_data);
+
+      // step 2
+      placeUsedBreaker(input, mid_data, circuits, rowMode);
+      console.log('[MID after Step 2]', mid_data);
+
+      // step 3
+      placeNewBreakerForDoubleVert(
+        {
+          quantity,
+          circuits,
+          numOfPhase,
+          startIndex,
+        },
+        mid_data
+      );
+      console.log('[MID after Step 3]', mid_data);
+      checkConflict(mid_data);
+      return {
+        code: 1,
+        data: mid_data,
+      };
+    } else if (numberType === NUMBER_TYPE.HORI) {
+      // step 1
+      initData(mid_data, circuits, rowMode, NUMBER_TYPE.HORI);
+      console.log('[MID after Step 1]', mid_data);
+
+      // step 2
+      placeUsedBreaker(input, mid_data, circuits, rowMode, NUMBER_TYPE.HORI);
+      console.log('[MID after Step 2]', mid_data);
+
+      // step 3
+      placeNewBreakerForDoubleHori(
+        {
+          quantity,
+          circuits,
+          numOfPhase,
+          startIndex,
+        },
+        mid_data
+      );
+      console.log('[MID after Step 3]', mid_data);
+      checkConflict(mid_data);
+      return {
+        code: 1,
+        data: mid_data,
+      };
+    }
   }
   return {
     code,
@@ -159,15 +216,101 @@ const getPhaseByIndex = (index: number): string => {
   }
 };
 
-const placeUsedBreaker = (input: any[], mid: any[]) => {
-  input.forEach(b => {
-    const { circuitIdx, numOfPhase } = b;
-    for (let i = circuitIdx; i < circuitIdx + numOfPhase; i++) {
-      if (mid[i - 1]) {
-        mid[i - 1]['leftUsed'] = true;
+const initData = (
+  mid: any[],
+  circuits: number,
+  rowMode: number,
+  numberType = 1
+) => {
+  if (rowMode === ROW_MODE.SINGLE) {
+    for (let i = 0; i < circuits; i++) {
+      mid.push({
+        idx1: i + 1,
+        phase: getPhaseByIndex(i),
+        leftIsNew: false,
+        leftUsed: false,
+        rightUsed: false,
+        rightIsNew: false,
+        leftConflict: false,
+        rightConflict: false,
+      });
+    }
+  } else {
+    const leftMax = circuits % 2 === 0 ? circuits / 2 : (circuits + 1) / 2;
+    if (numberType === NUMBER_TYPE.VERT) {
+      for (let i = 0; i < leftMax; i++) {
+        mid.push({
+          idx1: i + 1,
+          idx2: removeLastIndex(i + 1 + leftMax, circuits),
+          phase: getPhaseByIndex(i),
+          leftIsNew: false,
+          leftUsed: false,
+          rightUsed: false,
+          rightIsNew: false,
+          leftConflict: false,
+          rightConflict: false,
+        });
+      }
+    } else if (numberType === NUMBER_TYPE.HORI) {
+      for (let i = 0; i < leftMax; i++) {
+        mid.push({
+          idx1: i * 2 + 1,
+          idx2: removeLastIndex(i * 2 + 2, circuits),
+          phase: getPhaseByIndex(i),
+          leftIsNew: false,
+          leftUsed: false,
+          rightUsed: false,
+          rightIsNew: false,
+          leftConflict: false,
+          rightConflict: false,
+        });
       }
     }
-  });
+  }
+};
+
+const placeUsedBreaker = (
+  input: any[],
+  mid: any[],
+  circuits: number,
+  rowMode: number,
+  numberType = NUMBER_TYPE.VERT
+) => {
+  const leftMax = circuits % 2 === 0 ? circuits / 2 : (circuits + 1) / 2;
+  if (rowMode === ROW_MODE.SINGLE) {
+    input.forEach((b) => {
+      const { circuitIdx, numOfPhase } = b;
+      for (let i = circuitIdx; i < circuitIdx + numOfPhase; i++) {
+        if (mid[i - 1]) {
+          mid[i - 1]['leftUsed'] = true;
+        }
+      }
+    });
+  } else {
+    if (numberType === NUMBER_TYPE.VERT) {
+      input.forEach((b) => {
+        const { circuitIdx, numOfPhase } = b;
+        for (let i = circuitIdx; i < circuitIdx + numOfPhase; i++) {
+          if (i <= leftMax ? mid[i - 1] : mid[i - leftMax - 1]) {
+            (i <= leftMax ? mid[i - 1] : mid[i - leftMax - 1])[
+              i <= leftMax ? 'leftUsed' : 'rightUsed'
+            ] = true;
+          }
+        }
+      });
+    } else if (numberType === NUMBER_TYPE.HORI) {
+      input.forEach((b) => {
+        const { circuitIdx, numOfPhase } = b;
+        for (let i = circuitIdx; i < circuitIdx + numOfPhase * 2; i += 2) {
+          if (i % 2 === 0 && mid[i / 2 - 1]) {
+            mid[i / 2 - 1].rightUsed = true;
+          } else if (i % 2 === 1 && mid[(i - 1) / 2]) {
+            mid[(i - 1) / 2].leftUsed = true;
+          }
+        }
+      });
+    }
+  }
 };
 
 const placeNewBreakerForSingle = (config: any, mid: any[]) => {
@@ -179,6 +322,48 @@ const placeNewBreakerForSingle = (config: any, mid: any[]) => {
       break;
     }
     mid[i].leftIsNew = true;
+  }
+};
+
+const placeNewBreakerForDoubleVert = (config: any, mid: any[]) => {
+  const { quantity, circuits, numOfPhase, startIndex } = config;
+  const leftMax = circuits % 2 === 0 ? circuits / 2 : (circuits + 1) / 2;
+  const actualIndex = startIndex - 1;
+  const total = numOfPhase * quantity;
+  for (let i = actualIndex; i < actualIndex + total; i++) {
+    if (i >= circuits) {
+      break;
+    }
+    if (i < leftMax) {
+      mid[i].leftIsNew = true;
+      // check case: breaker cross two rows
+    } else {
+      mid[i - leftMax].rightIsNew = true;
+    }
+  }
+};
+
+const placeNewBreakerForDoubleHori = (config: any, mid: any[]) => {
+  const { quantity, circuits, numOfPhase, startIndex } = config;
+  const leftMax = circuits % 2 === 0 ? circuits / 2 : (circuits + 1) / 2;
+  const actualIndex = (startIndex - 1) / 2;
+  // const total = numOfPhase * quantity;
+  let currIndex = actualIndex;
+  for (let i = 0; i < quantity; i++) {
+    if (currIndex + numOfPhase > circuits) {
+      break;
+    }
+    if (currIndex % 2 === 0) {
+      for (let j = currIndex; j < currIndex + numOfPhase * 2; j += 2) {
+        mid[j / 2 - 1].rightIsNew = true;
+      }
+      currIndex += numOfPhase * 2;
+    } else if (currIndex % 2 === 1) {
+      for (let j = currIndex; j < currIndex + numOfPhase * 2; j += 2) {
+        mid[(j - 1) / 2].leftIsNew = true;
+      }
+      currIndex += numOfPhase * 2;
+    }
   }
 };
 
@@ -218,4 +403,8 @@ const getColorByType = (used: boolean, isNew: boolean, conflict: boolean) => {
   } else {
     return WHITE;
   }
+};
+
+const removeLastIndex = (input: number, max: number) => {
+  return input > max ? null : input;
 };
