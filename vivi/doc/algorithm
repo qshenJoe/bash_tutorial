@@ -1,0 +1,224 @@
+import { Box3, Matrix4, Mesh, Vector3 } from 'three';
+import { WidgetDirection, WidgetType } from './types';
+import { getValue, getLast, getFirst } from '@opi/util';
+import { Widget } from '@antv/x6/lib/addon/common';
+
+export function fitChildMesh(
+  prevType: WidgetType,
+  currType: WidgetType,
+  mesh: Mesh,
+  target: any,
+  bb: Box3,
+  point: Vector3
+) {
+  const { position, geometry } = target;
+  const extrudePath = getValue(geometry, [
+    'parameters',
+    'options',
+    'extrudePath',
+  ]);
+  const { type, v1, v2, points } = extrudePath;
+  let path: Vector3;
+  const dir = getDirByType(prevType, bb, point);
+  const offsetV = getOffsetByType(currType, dir);
+  if (type === 'CatmullRomCurve3') {
+    path = hasOffset(prevType, dir) ? getFirst(points) : getLast(points);
+  } else if (type === 'LineCurve3') {
+    path = hasOffset(prevType, dir) ? v1 : v2;
+    // path = v2;
+  }
+
+  console.log('[Direction]: ', dir);
+  console.log('[Offset]: ', offsetV);
+
+  // 由前一个图形的类型和下一个图形期望的摆放方向决定偏移量
+  switch (prevType) {
+    case WidgetType.H_LINE:
+      mesh.applyMatrix4(
+        new Matrix4().makeTranslation(
+          position.x +
+            (dir === WidgetDirection.LEFT ? -path.x : path.x) +
+            offsetV.x,
+          position.y,
+          position.z + offsetV.z
+        )
+      );
+      return;
+    case WidgetType.V_LINE:
+      mesh.applyMatrix4(
+        new Matrix4().makeTranslation(
+          position.x + offsetV.x,
+          position.y,
+          position.z +
+            (dir === WidgetDirection.BOTTOM ? path.z : -path.z) +
+            offsetV.z
+        )
+      );
+      return;
+    case WidgetType.LEFT_DOWN_CORNER:
+      mesh.applyMatrix4(
+        new Matrix4().makeTranslation(
+          position.x +
+            (dir === WidgetDirection.BOTTOM ? path.x : -path.x) +
+            offsetV.x,
+          position.y,
+          position.z +
+            (dir === WidgetDirection.BOTTOM ? path.z : -path.z) +
+            offsetV.z
+        )
+      );
+      return;
+    case WidgetType.LEFT_UP_CORNER:
+      mesh.applyMatrix4(
+        new Matrix4().makeTranslation(
+          position.x +
+            (dir === WidgetDirection.TOP ? path.x : -path.x) +
+            offsetV.x,
+          position.y,
+          position.z +
+            (dir === WidgetDirection.TOP ? path.z : -path.z) +
+            offsetV.z
+        )
+      );
+      return;
+    case WidgetType.RIGHT_DOWN_CORNER:
+      mesh.applyMatrix4(
+        new Matrix4().makeTranslation(
+          position.x +
+            (dir === WidgetDirection.BOTTOM ? path.x : -path.x) +
+            offsetV.x,
+          position.y,
+          position.z +
+            (dir === WidgetDirection.BOTTOM ? path.z : -path.z) +
+            offsetV.z
+        )
+      );
+      return;
+    case WidgetType.RIGHT_UP_CORNER:
+      mesh.applyMatrix4(
+        new Matrix4().makeTranslation(
+          position.x +
+            (dir === WidgetDirection.TOP ? path.x : -path.x) +
+            offsetV.x,
+          position.y,
+          position.z +
+            (dir === WidgetDirection.TOP ? path.z : -path.z) +
+            offsetV.z
+        )
+      );
+      return;
+    case WidgetType.T_DOWN_CORNER:
+      mesh.applyMatrix4(
+        new Matrix4().makeTranslation(
+          position.x,
+          // (dir === WidgetDirection.TOP ? path.x : -path.x) +
+          // offsetV.x,
+          position.y,
+          position.z
+          //   (dir === WidgetDirection.TOP ? path.z : -path.z) +
+          //   offsetV.z
+        )
+      );
+      return;
+    default:
+      break;
+  }
+}
+
+export function getDirByType(
+  type: WidgetType,
+  bb: Box3,
+  point: Vector3
+): WidgetDirection {
+  const { min, max } = bb;
+  const { x, z } = point;
+  const hx = Math.abs(max.x - min.x) / 2;
+  const hz = Math.abs(max.z - min.z) / 2;
+  const dX = Math.abs(max.x - x);
+  const topdZ = Math.abs(min.z - z);
+  const bottomdZ = Math.abs(max.z - z);
+  switch (type) {
+    case WidgetType.H_LINE:
+      return dX >= hx ? WidgetDirection.LEFT : WidgetDirection.RIGHT;
+    case WidgetType.V_LINE:
+      return bottomdZ >= hz ? WidgetDirection.TOP : WidgetDirection.BOTTOM;
+    case WidgetType.LEFT_DOWN_CORNER:
+      return bottomdZ >= hz ? WidgetDirection.LEFT : WidgetDirection.BOTTOM;
+    case WidgetType.LEFT_UP_CORNER:
+      return topdZ >= hz ? WidgetDirection.LEFT : WidgetDirection.TOP;
+    case WidgetType.RIGHT_DOWN_CORNER:
+      return bottomdZ <= hz ? WidgetDirection.BOTTOM : WidgetDirection.RIGHT;
+    case WidgetType.RIGHT_UP_CORNER:
+      return topdZ >= hz ? WidgetDirection.RIGHT : WidgetDirection.TOP;
+    default:
+      break;
+  }
+}
+
+export function getOffsetByType(
+  type: WidgetType,
+  dir: WidgetDirection
+): Vector3 {
+  switch (type) {
+    case WidgetType.H_LINE:
+      return dir === WidgetDirection.LEFT
+        ? new Vector3(-80, 0, 0)
+        : new Vector3(0, 0, 0);
+    case WidgetType.V_LINE:
+      return dir === WidgetDirection.TOP
+        ? new Vector3(0, 0, -80)
+        : new Vector3(0, 0, 0);
+    case WidgetType.LEFT_UP_CORNER:
+      return dir === WidgetDirection.BOTTOM
+        ? new Vector3(-105, 0, 105)
+        : new Vector3(0, 0, 0);
+    case WidgetType.LEFT_DOWN_CORNER:
+      return dir === WidgetDirection.TOP
+        ? new Vector3(-105, 0, -105)
+        : new Vector3(0, 0, 0);
+    case WidgetType.RIGHT_UP_CORNER:
+      return dir === WidgetDirection.BOTTOM
+        ? new Vector3(105, 0, 105)
+        : new Vector3(0, 0, 0);
+    case WidgetType.RIGHT_DOWN_CORNER:
+      return dir === WidgetDirection.TOP
+        ? new Vector3(105, 0, -105)
+        : new Vector3(0, 0, 0);
+    default:
+      return new Vector3(0, 0, 0);
+  }
+}
+
+export function hasOffset(type: WidgetType, dir: WidgetDirection): boolean {
+  if (
+    dir === WidgetDirection.TOP &&
+    [
+      WidgetType.LEFT_DOWN_CORNER,
+      WidgetType.RIGHT_DOWN_CORNER,
+      WidgetType.V_LINE,
+    ].includes(type)
+  ) {
+    return true;
+  } else if (
+    dir === WidgetDirection.BOTTOM &&
+    [WidgetType.LEFT_UP_CORNER, WidgetType.RIGHT_UP_CORNER].includes(type)
+  ) {
+    return true;
+  } else if (
+    dir === WidgetDirection.LEFT &&
+    [
+      WidgetType.LEFT_UP_CORNER,
+      WidgetType.LEFT_DOWN_CORNER,
+      WidgetType.H_LINE,
+    ].includes(type)
+  ) {
+    return true;
+  } else if (
+    dir === WidgetDirection.RIGHT &&
+    [WidgetType.RIGHT_UP_CORNER, WidgetType.RIGHT_DOWN_CORNER].includes(type)
+  ) {
+    return true;
+  } else {
+    return false;
+  }
+}
