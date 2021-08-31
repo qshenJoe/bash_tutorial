@@ -1,4 +1,9 @@
-import { registerEdge } from '@antv/g6';
+import G6, { registerEdge } from '@antv/g6';
+
+enum COLORS {
+  CABLE_TEXT_BG = '#f2f2f2',
+  TEXT = '#000',
+}
 
 export const registerCableEdge = () => {
   registerEdge(
@@ -18,23 +23,58 @@ export const registerCableEdge = () => {
           attrs: {
             width: 80,
             height: 60,
-            // fill: rectColor,
+            fill: COLORS.CABLE_TEXT_BG,
             stroke: rectColor,
             x: midPoint.x - 40,
             y: midPoint.y + 20,
+            r: 2,
           },
         });
         group.addShape('text', {
           attrs: {
-            width: 40,
-            height: 20,
-            fill: rectColor,
-            x: midPoint.x - 20,
-            y: midPoint.y - 20,
+            fill: COLORS.TEXT,
+            x: midPoint.x - 40,
+            y: midPoint.y + 40,
             text: cfg.info,
+            textAlign: 'start',
+            textBaseline: 'middle',
           },
         });
         return group as any;
+      },
+      getPath(points) {
+        const [startPoint, endPoint] = points;
+        return [
+          [
+            ['M', startPoint.x, startPoint.y],
+            ['L', endPoint.x / 3 + (2 / 3) * startPoint.x, startPoint.y],
+            ['L', endPoint.x / 3 + (2 / 3) * startPoint.x, endPoint.y],
+            ['L', startPoint.x, startPoint.y],
+          ],
+        ];
+      },
+      getShapeStyle(cfg) {
+        const startPoint = cfg.startPoint;
+        const endPoint = cfg.endPoint;
+        const controlPoints = this.getControlPoints(cfg);
+        let points = [startPoint]; // the start point
+        // the control points
+        if (controlPoints) {
+          points = points.concat(controlPoints);
+        }
+        points.push(endPoint);
+        const path = this.getPath(points);
+        const style = Object.assign(
+          {},
+          G6.Global.defaultEdge.style,
+          {
+            stroke: '#BBB',
+            lineWidth: 1,
+            path,
+          },
+          cfg.style
+        );
+        return style;
       },
       afterDraw: function (cfg, group) {
         const self = this;
