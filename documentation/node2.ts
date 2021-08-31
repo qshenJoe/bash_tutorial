@@ -154,7 +154,7 @@ export const registerDeviceNode = () =>
             textBaseline: 'top',
             textAlign: 'center',
             y: 165,
-            x: 2,
+            x: 102,
             lineHeight: 20,
             text: cfg.deviceType,
             fill: '#000',
