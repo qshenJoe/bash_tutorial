@@ -9,6 +9,28 @@ export const registerCableEdge = () => {
   registerEdge(
     'cable-edge',
     {
+      draw: function draw(cfg, group) {
+        const self = this;
+        const startPoint = cfg.startPoint;
+        const endPoint = cfg.endPoint;
+        const centerPoint = {
+          x: (startPoint.x + endPoint.x) / 2,
+          y: (startPoint.y + endPoint.y) / 2,
+        };
+        const sourceNode: any = cfg.sourceNode;
+        const targetNode: any = cfg.targetNode;
+        const sourceAnchorPoints = sourceNode.getAnchorPoints();
+        const sourceAnchor = cfg.sourceAnchor as number;
+        const targetAnchorPoints = targetNode.getAnchorPoints();
+        const targetAnchor = cfg.targetAnchor;
+        const isVertical = ['RDL', 'LDR'].includes(cfg.direction as string);
+        const dY = endPoint.y - startPoint.y;
+        let path = [
+          ['M', startPoint.x, startPoint.y],
+          ['L', endPoint.x, endPoint.y],
+        ];
+        return line;
+      },
       drawLabel(cfg, group) {
         const shape = group.get('children')[0];
         const midPoint = shape.getPoint(0.5);
