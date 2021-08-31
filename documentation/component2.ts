@@ -91,9 +91,7 @@ export class FiberDocViewComponent implements OnInit, AfterViewInit {
           labelCfg: {
             refY: 50,
           },
-          info: `Name: Fiber#3
-          Type: Fiber Cable
-          Length: 10ft`,
+          info: `Name: Fiber#3\nType: Fiber Cable\nLength: 10ft`,
         },
         {
           source: 'node2',
