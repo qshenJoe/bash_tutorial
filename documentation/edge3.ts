@@ -1,13 +1,4 @@
 import G6, { registerEdge, Util } from '@antv/g6';
-import {
-  extendObject,
-  getValue,
-  isEmpty,
-  isFunction,
-  setValue,
-  isNil,
-  nextTick,
-} from '@opi/util';
 import { deepMix } from '@antv/util';
 
 enum COLORS {
@@ -15,7 +6,7 @@ enum COLORS {
   TEXT = '#000',
 }
 const edgeSep = 80;
-const arrowWidth = 28;
+const arrowWidth = 20;
 const arrowHeight = 12;
 const CLS_SHAPE = 'edge-cable-shape';
 
@@ -43,6 +34,7 @@ export const registerCableEdge = () => {
           ['M', startPoint.x, startPoint.y],
           ['L', endPoint.x, endPoint.y],
         ];
+        // console.log('Cable Length', endPoint.x - startPoint.x);
         if (cfg.direction === 'RDL') {
           path = [
             ['M', startPoint.x, startPoint.y],
@@ -63,14 +55,6 @@ export const registerCableEdge = () => {
             path,
             stroke: (cfg.cableColor as string) || '#dfdfdf',
             lineWidth: 8,
-            // startArrow: {
-            //   path: 'M 0,-5 L 0,5 L 30,5 L 30,-5 Z',
-            //   stroke: '#F6BD16',
-            // },
-            // endArrow: {
-            //   path: 'M 0,-5 L 0,5 L 30,5 L 30,-5 Z',
-            //   stroke: '#F6BD16',
-            // },
           },
         });
         line.set('className', CLS_SHAPE);
@@ -83,17 +67,6 @@ export const registerCableEdge = () => {
         const shape = group.get('children')[0];
         const midPoint = shape.getPoint(0.5);
         const rectColor = '#dfdfdf';
-        // group.addShape('rect', {
-        //   attrs: {
-        //     width: 80,
-        //     height: 60,
-        //     fill: COLORS.CABLE_TEXT_BG,
-        //     stroke: rectColor,
-        //     x: midPoint.x - 40,
-        //     y: midPoint.y + 20,
-        //     r: 2,
-        //   },
-        // });
 
         // add start arrow and end arrow
         group.addShape('rect', {
@@ -116,25 +89,6 @@ export const registerCableEdge = () => {
             y: endPoint.y - (1 / 2) * arrowHeight,
           },
         });
-        // group.addShape('text', {
-        //   attrs: {
-        //     fill: COLORS.TEXT,
-        //     x: midPoint.x - 40,
-        //     y: midPoint.y + 40,
-        //     text: cfg.label,
-        //     textAlign: 'start',
-        //     textBaseline: 'middle',
-        //     style: {
-        //       background: {
-        //         fill: '#dfdfdf',
-        //         stroke: '#fff',
-        //         padding: [3, 2, 3, 2],
-        //       },
-        //     },
-        //   },
-        //   className: 'cable-text-shape',
-        //   name: 'cable-text-shape',
-        // });
         const defaultConfig = {} as any;
         const labelCfg = deepMix(
           {},
@@ -142,6 +96,11 @@ export const registerCableEdge = () => {
           defaultConfig.labelCfg,
           cfg.labelCfg
         );
+        const cableInfoPosX = midPoint.x;
+        const cableInfoPosY = midPoint.y;
+        const dY = endPoint.y - startPoint.y;
+        const targetY = startPoint.y + dY / 3;
+
         const style = this.getLabelStyleByPosition(cfg, labelCfg, group);
         if (cableLabel) {
           cableLabel['attrs'] = {
@@ -149,10 +108,14 @@ export const registerCableEdge = () => {
             ...{ ...labelCfg, ...style },
           };
         } else {
+          if (['RDL', 'LDR'].includes(cfg.direction as string)) {
+            console.log(cfg);
+          }
           cableLabel = group.addShape('text', {
             attrs: {
               ...labelCfg,
               ...style,
+              ...this.calcLabelOffset(cfg, group),
               text: cfg.label,
               textAlign: 'start',
               textBaseline: 'middle',
@@ -160,11 +123,8 @@ export const registerCableEdge = () => {
           });
         }
         cableLabel.set('className', 'edge-text-count');
-        // add label bgColor
-        // const rect = this.drawLabelBg(cfg, group, label);
-        // const labelBgClassname = this.itemType + '-label-bg';
-        // rect.set('classname', labelBgClassname);
-        // label.toFront();
+        this.drawLabelBg(cfg, group, cableLabel);
+        cableLabel.toFront();
         return group as any;
       },
       getPath(points) {
@@ -213,11 +173,35 @@ export const registerCableEdge = () => {
         const startPoint = cfg.startPoint;
         const endPoint = cfg.endPoint;
         if (start) {
-          return reverse ? startPoint.x - arrowWidth : startPoint.x;
+          return direction === 'LDR' || reverse
+            ? startPoint.x - arrowWidth
+            : startPoint.x;
         } else {
           return direction === 'RDL' || reverse
             ? endPoint.x
             : endPoint.x - arrowWidth;
+        }
+      },
+      calcLabelOffset(cfg, group) {
+        const shape = group.get('children')[0];
+        const midPoint = shape.getPoint(0.5);
+        const isRDL = cfg.direction === 'RDL';
+        const isLDR = cfg.direction === 'LDR';
+        const startPoint = cfg.startPoint;
+        const endPoint = cfg.endPoint;
+        const dY = endPoint.y - startPoint.y;
+        const offsetY = startPoint.y + dY / 3;
+        const offsetX = startPoint.x - 40;
+        if (isRDL || isLDR) {
+          return {
+            x: offsetX,
+            y: offsetY,
+          };
+        } else {
+          return {
+            x: midPoint.x - 40,
+            y: midPoint.y + 80,
+          };
         }
       },
       getLabelStyleByPosition(cfg, labelCfg, group) {
@@ -243,9 +227,10 @@ export const registerCableEdge = () => {
           style.y = cfg.endPoint.y + refY ? refY : 0;
           return style;
         }
-        const autoRotate = isNil(labelCfg.autoRotate)
-          ? this.labelAutoRotate
-          : labelCfg.autoRotate;
+        const autoRotate =
+          labelCfg.autoRotate == null
+            ? this.labelAutoRotate
+            : labelCfg.autoRotate;
         const offsetStyle = Util.getLabelPosition(
           pathShape as any,
           pointPercent,
