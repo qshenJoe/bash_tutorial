@@ -1,36 +1,47 @@
 import { registerNode } from '@antv/g6';
+import { findSVG } from '@ngux/shared/path-view/utils';
+import { isEmpty } from '@opi/util';
 import { mix } from '@antv/util';
 
 enum PANEL_COLOR {
-  LIGHT_BLUE = '#d5e7f4',
-  DARK_BLUE = '#025ab2',
-  GREY = '#ddd',
+  DARK_BLUE = '#004B9E',
+  MIDDLE_BLUE = '#B3D7EC',
+  LIGHT_BLUE = '#E0EFF8',
+}
+
+enum FONT_COLOR {
+  WHITE = '#FFFFFF',
+  DARK = '#000000',
 }
 
 const nodeWidth = 250;
-const nodeHeight = 200;
+const nodeHeight = 200 + 2;
 const panelFontSize = 12;
 const panelPortMiddleSpace = 20;
 const panelPortWidth = (nodeWidth - panelPortMiddleSpace) / 2;
 const panelModelImageHeight = 100;
 const panelBaseHeight = 20;
-const panelFontColor = '#fff';
-const panelFontColorDark = '#000';
-const panelFillColor = '#fff';
-const panelStrokeColor = '#fff';
+const panelBaseWidth = nodeWidth - 2;
+const panelFontColor = FONT_COLOR.WHITE;
+const panelFontColorDark = FONT_COLOR.DARK;
+const panelFillColor = FONT_COLOR.WHITE;
+const panelStrokeColor = FONT_COLOR.WHITE;
 const panelBaseFillColor = '#1b75c4';
 const panelTextLineHeight = 20;
-const panelTextYOffset = 5;
+const panelTextYOffset = panelBaseHeight / 2;
 const panelTextIndent = 2;
+const containerStrokeColor = '#1b75c4';
+const panelTopRectFillColor = PANEL_COLOR.DARK_BLUE;
+const panelMiddleRectFillColor = PANEL_COLOR.MIDDLE_BLUE;
+const panelBottomRectFillColor = PANEL_COLOR.LIGHT_BLUE;
+const r = 2;
+
 export const registerDeviceNode = () =>
   registerNode(
     'd13n-node',
     {
       drawShape: function drawShape(cfg, group) {
-        const color = '#dfdfdf';
-        const bottomRectColor = PANEL_COLOR.GREY;
-        const r = 2;
-        const typeId = '822c1b1a-ced5-11e4-b3c2-000c294c98b1'; // cfg.modelId
+        const typeId = cfg.typeId; // '822c1b1a-ced5-11e4-b3c2-000c294c98b1'; // cfg.modelId
         // const style = this.getShapeStyle(cfg);
 
         const shape = group.addShape('rect', {
@@ -39,7 +50,7 @@ export const registerDeviceNode = () =>
             y: 0,
             width: nodeWidth,
             height: nodeHeight,
-            stroke: cfg.hide ? panelStrokeColor : color,
+            stroke: cfg.hide ? panelStrokeColor : containerStrokeColor,
             radius: r,
           },
           name: 'main-box',
@@ -52,20 +63,20 @@ export const registerDeviceNode = () =>
 
           group.addShape('rect', {
             attrs: {
-              x: 0,
-              y: 0,
-              width: nodeWidth,
+              x: 1,
+              y: 1,
+              width: panelBaseWidth,
               height: panelBaseHeight,
-              fill: panelBaseFillColor,
+              fill: panelTopRectFillColor,
               stroke: panelFillColor,
-              radius: [r, r, 0, 0],
+              radius: r,
             },
             name: 'panel-location-info',
           });
 
           group.addShape('text', {
             attrs: {
-              textBaseline: 'top',
+              textBaseline: 'middle',
               y: panelTextYOffset,
               x: panelTextIndent,
               lineHeight: panelTextLineHeight,
@@ -81,51 +92,51 @@ export const registerDeviceNode = () =>
            */
           group.addShape('rect', {
             attrs: {
-              x: 0,
-              y: panelBaseHeight * 1,
-              width: nodeWidth,
+              x: 1,
+              y: 1 + panelBaseHeight * 1,
+              width: panelBaseWidth,
               height: panelBaseHeight,
-              fill: panelBaseFillColor,
+              fill: panelMiddleRectFillColor,
               stroke: panelStrokeColor,
-              radius: [r, r, 0, 0],
+              radius: r,
             },
             name: 'text-device-location',
           });
 
           group.addShape('text', {
             attrs: {
-              textBaseline: 'top',
+              textBaseline: 'middle',
               y: panelBaseHeight * 1 + panelTextYOffset,
               x: panelTextIndent,
               lineHeight: panelTextLineHeight,
               text: cfg.container ?? '',
-              fill: panelFontColor,
+              fill: panelFontColorDark,
               fontSize: panelFontSize,
             },
             name: 'text-device-uposition',
           });
 
-          group.addShape('rect', {
-            attrs: {
-              x: 0,
-              y: panelBaseHeight * 2,
-              width: nodeWidth,
-              height: panelBaseHeight,
-              fill: panelBaseFillColor,
-              stroke: panelStrokeColor,
-              radius: [r, r, 0, 0],
-            },
-            name: 'panel-device-name',
-          });
+          // group.addShape('rect', {
+          //   attrs: {
+          //     x: 0,
+          //     y: panelBaseHeight * 2,
+          //     width: nodeWidth,
+          //     height: panelBaseHeight,
+          //     fill: panelBaseFillColor,
+          //     stroke: panelStrokeColor,
+          //     radius: [r, r, 0, 0],
+          //   },
+          //   name: 'panel-device-name',
+          // });
 
           group.addShape('text', {
             attrs: {
-              textBaseline: 'top',
+              textBaseline: 'middle',
               y: panelBaseHeight * 2 + panelTextYOffset,
-              x: panelTextIndent,
+              x: panelTextIndent * 10,
               lineHeight: panelTextLineHeight,
               text: cfg.deviceName ?? '',
-              fill: panelFontColor,
+              fill: panelFontColorDark,
               fontSize: panelFontSize,
             },
             name: 'text-device-name',
@@ -137,54 +148,55 @@ export const registerDeviceNode = () =>
           group.addShape('rect', {
             attrs: {
               x: 0,
-              y: panelBaseHeight * 3,
+              y: 1 + panelBaseHeight * 3,
               width: nodeWidth,
               height: panelModelImageHeight,
-              stroke: '#1b75c4',
             },
             name: 'panel-device-type-image',
           });
-          group.addShape('image', {
+          // group.addShape('image', {
+          //   attrs: {
+          //     x: 0,
+          //     y: panelBaseHeight * 3,
+          //     img: 'assets/models/junction-box.jpeg',
+          //     width: nodeWidth,
+          //     height: panelModelImageHeight,
+          //   },
+          // });
+          group.addShape('dom', {
             attrs: {
               x: 0,
               y: panelBaseHeight * 3,
-              img: 'assets/models/junction-box.jpeg',
+              html: findSVG(`ux-${typeId}`),
               width: nodeWidth,
               height: panelModelImageHeight,
             },
           });
-          // group.addShape('img', {
-          //   attrs: {
-          //     x: 0,
-          //     y: 40,
-          //     html: findSVG(`ux-${typeId}`),
-          //     width: 150 - 2,
-          //     height: 100 - 2,
-          //   },
-          // });
           if (cfg.sPort) {
             group.addShape('rect', {
               attrs: {
-                x: 0,
-                y: panelBaseHeight * 3 + panelModelImageHeight,
+                x: 1,
+                y: 1 + panelBaseHeight * 3 + panelModelImageHeight,
                 width: panelPortWidth,
                 height: panelBaseHeight,
-                stroke: color,
-                fill: panelBaseFillColor,
+                stroke: panelStrokeColor,
+                fill: panelMiddleRectFillColor,
+                radius: r
               },
               name: 'panel-port-left',
             });
             group.addShape('text', {
               attrs: {
-                textBaseline: 'top',
+                textBaseline: 'middle',
+                textAlign: 'center',
                 y:
                   panelBaseHeight * 3 +
                   panelModelImageHeight +
                   panelTextYOffset,
-                x: 2,
+                x: panelPortWidth / 2,
                 lineHeight: panelTextLineHeight,
                 text: cfg.sPort,
-                fill: panelFontColor,
+                fill: panelFontColorDark,
                 fontSize: panelFontSize,
               },
               name: 'text-port-left',
@@ -193,27 +205,28 @@ export const registerDeviceNode = () =>
           if (cfg.dPort) {
             group.addShape('rect', {
               attrs: {
-                x: panelPortWidth + panelPortMiddleSpace,
-                y: panelBaseHeight * 3 + panelModelImageHeight,
+                x: panelPortWidth + panelPortMiddleSpace - 1,
+                y: 1 + panelBaseHeight * 3 + panelModelImageHeight,
                 width: panelPortWidth,
                 height: panelBaseHeight,
-                stroke: color,
-                fill: panelBaseFillColor,
+                stroke: panelStrokeColor,
+                fill: panelMiddleRectFillColor,
+                radius: r
               },
               name: 'panel-port-right',
             });
             group.addShape('text', {
               attrs: {
-                textBaseline: 'top',
-                textAlign: 'right',
+                textBaseline: 'middle',
+                textAlign: 'center',
                 y:
                   panelBaseHeight * 3 +
                   panelModelImageHeight +
                   panelTextYOffset,
-                x: nodeWidth - 2, // x=200相当于x=0
+                x: nodeWidth - panelPortWidth / 2, // x=200相当于x=0
                 lineHeight: panelTextLineHeight,
                 text: cfg.dPort,
-                fill: panelFontColor,
+                fill: panelFontColorDark,
                 fontSize: panelFontSize,
               },
               name: 'text-port-right',
@@ -221,17 +234,19 @@ export const registerDeviceNode = () =>
           }
           group.addShape('rect', {
             attrs: {
-              x: 0,
-              y: panelBaseHeight * 4 + panelModelImageHeight,
-              width: nodeWidth,
+              x: 1,
+              y: 1 + panelBaseHeight * 4 + panelModelImageHeight,
+              width: panelBaseWidth,
               height: panelBaseHeight,
-              fill: bottomRectColor,
+              fill: panelBottomRectFillColor,
+              stroke: panelStrokeColor,
+              radius: r,
             },
             name: 'panel-device-type',
           });
           group.addShape('text', {
             attrs: {
-              textBaseline: 'top',
+              textBaseline: 'middle',
               textAlign: 'center',
               y: panelBaseHeight * 4 + panelModelImageHeight + panelTextYOffset,
               x: nodeWidth / 2,
