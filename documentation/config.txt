@@ -1,0 +1,19 @@
+Width: 200-400
+
+Location bar height: 25
+
+Device bar height: 20
+
+Image area: 60 (w-max:160, h-max:40)
+
+Port bar: 20 * 90
+
+Type bar height: 25
+
+
+
+Color 1: 004B9E
+
+Color 2: B3D7EC
+
+Color 3: E0EFF8
