@@ -1,4 +1,5 @@
 import { Util } from '@antv/g6';
+import { getLast } from '@opi/util';
 const globalFontSize = 12;
 const maxCableInfoWidth = 119.2 - 16 * 2;
 export const partition = (arr: any[], length: number) => {
@@ -40,8 +41,30 @@ export const fittingString = (str, maxWidth, fontSize) => {
 
 export const transformData = (data: any[]): { nodes: any[]; edges: any[] } => {
   const relationMap = new Map<number, number>();
-  const devices = data.filter((_) => _.entityType === 'device'); // 0, 2, 4, 6, 8, 10
-  const cables = data.filter((_) => _.entityType === 'cable'); // 1,3,5,7,9,11
+  const devices = data.filter(_ => _.entityType === 'device'); // 0, 2, 4, 6, 8, 10
+  const cables = data.filter(_ => _.entityType === 'cable'); // 1,3,5,7,9,11
+  if (
+    devices.length !== 0 &&
+    cables.length !== 0 &&
+    devices.length === cables.length
+  ) {
+    devices.push({
+      id: getLast(cables)?.pid,
+      pid: 9999,
+      entityName: 'Remote End',
+      entityType: 'device',
+      fromPort: 'Hole 01',
+      toPort: 'Hole 02',
+      location: 'NULL',
+      container: null,
+      modelId: null,
+      typeName: null,
+      color: null,
+      length: null,
+      lengthUnit: null,
+      hide: true,
+    });
+  }
   const nodes = devices.map((device: any) => {
     const {
       id,
@@ -52,6 +75,7 @@ export const transformData = (data: any[]): { nodes: any[]; edges: any[] } => {
       location,
       container,
       modelId,
+      typeId,
       typeName,
       color,
       length,
@@ -67,7 +91,7 @@ export const transformData = (data: any[]): { nodes: any[]; edges: any[] } => {
       sPort: fromPort,
       dPort: toPort,
       deviceType: typeName,
-      modelId,
+      typeId,
       hide,
     };
     const ap = [];
@@ -80,15 +104,23 @@ export const transformData = (data: any[]): { nodes: any[]; edges: any[] } => {
     t.anchorPoints = ap;
     return t;
   });
-  nodes.forEach((node) => {
+
+  nodes.forEach(node => {
     const { sid, pid } = node;
     relationMap.set(pid, sid);
     relationMap.set(sid, sid);
   });
   const edges = cables
     .map((cable: any) => {
-      const { id, pid, entityName, typeName, color, length, lengthUnit } =
-        cable;
+      const {
+        id,
+        pid,
+        entityName,
+        typeName,
+        color,
+        length,
+        lengthUnit,
+      } = cable;
       const source = relationMap.get(id);
       const target = relationMap.get(pid);
       if (target == null) {
@@ -102,13 +134,13 @@ export const transformData = (data: any[]): { nodes: any[]; edges: any[] } => {
       const cableTypeName =
         typeName == null
           ? ''
-          : fittingString(typeName ?? '', maxCableInfoWidth, globalFontSize) +
+          : fittingString(`Type: ${typeName}` ?? '', maxCableInfoWidth, globalFontSize) +
             '\n';
-      const cableLength = length == null ? '' : `${length} ${lengthUnit}`;
+      const cableLength = length == null ? '' : `${length}`;
       const t = {
         source: `node${source}`,
         target: target ? `node${target}` : void 0,
-        label: `${cableName}${cableTypeName}${cableLength}`,
+        label: `${cableName}${cableTypeName}Len(${lengthUnit}): ${cableLength}`,
         cableColor: color,
         labelCfg: {
           refY: 50,
@@ -123,7 +155,7 @@ export const transformData = (data: any[]): { nodes: any[]; edges: any[] } => {
       };
       return t;
     })
-    .filter((_) => !!_);
+    .filter(_ => !!_);
   edges.forEach((edge: any, index: number) => {
     const isCorner = (index + 1) % 5 === 0;
     const isRDL = ((index + 1) / 5) % 2 === 1;
