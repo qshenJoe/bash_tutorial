@@ -1,4 +1,13 @@
 import G6, { registerEdge, Util } from '@antv/g6';
+import {
+  extendObject,
+  getValue,
+  isEmpty,
+  isFunction,
+  setValue,
+  isNil,
+  nextTick,
+} from '@opi/util';
 import { deepMix } from '@antv/util';
 
 enum COLORS {
@@ -8,7 +17,7 @@ enum COLORS {
 const edgeSep = 80;
 const arrowWidth = 20;
 const arrowHeight = 12;
-const CLS_SHAPE = 'edge-cable-shape';
+const CLS_SHAPE = 'edge-shape';
 
 export const registerCableEdge = () => {
   registerEdge(
@@ -122,7 +131,7 @@ export const registerCableEdge = () => {
             },
           });
         }
-        cableLabel.set('className', 'edge-text-count');
+        cableLabel.set('className', CLS_SHAPE);
         this.drawLabelBg(cfg, group, cableLabel);
         cableLabel.toFront();
         return group as any;
@@ -227,10 +236,9 @@ export const registerCableEdge = () => {
           style.y = cfg.endPoint.y + refY ? refY : 0;
           return style;
         }
-        const autoRotate =
-          labelCfg.autoRotate == null
-            ? this.labelAutoRotate
-            : labelCfg.autoRotate;
+        const autoRotate = isNil(labelCfg.autoRotate)
+          ? this.labelAutoRotate
+          : labelCfg.autoRotate;
         const offsetStyle = Util.getLabelPosition(
           pathShape as any,
           pointPercent,
