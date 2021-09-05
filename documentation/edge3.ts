@@ -1,23 +1,19 @@
 import G6, { registerEdge, Util } from '@antv/g6';
-import {
-  extendObject,
-  getValue,
-  isEmpty,
-  isFunction,
-  setValue,
-  isNil,
-  nextTick,
-} from '@opi/util';
 import { deepMix } from '@antv/util';
 
 enum COLORS {
   CABLE_TEXT_BG = '#f2f2f2',
   TEXT = '#000',
+  BLUE = '#004B9E',
 }
 const edgeSep = 80;
 const arrowWidth = 20;
 const arrowHeight = 12;
 const CLS_SHAPE = 'edge-shape';
+
+const NAME_CABLE = 'cable-path-main';
+const NAME_CABLE_LABEL = 'cable-path-label';
+const NAME_CABLE_END = 'cable-path-end';
 
 export const registerCableEdge = () => {
   registerEdge(
@@ -27,31 +23,24 @@ export const registerCableEdge = () => {
         const self = this;
         const startPoint = cfg.startPoint;
         const endPoint = cfg.endPoint;
-        const centerPoint = {
-          x: (startPoint.x + endPoint.x) / 2,
-          y: (startPoint.y + endPoint.y) / 2,
-        };
+
+        const isRealCable = cfg.cableType === 'R';
         const sourceNode: any = cfg.sourceNode;
-        const targetNode: any = cfg.targetNode;
-        const sourceAnchorPoints = sourceNode.getAnchorPoints();
-        const sourceAnchor = cfg.sourceAnchor as number;
-        const targetAnchorPoints = targetNode.getAnchorPoints();
-        const targetAnchor = cfg.targetAnchor;
-        const isVertical = ['RDL', 'LDR'].includes(cfg.direction as string);
+        const position = sourceNode.get('model')?.position;
         const dY = endPoint.y - startPoint.y;
         let path = [
           ['M', startPoint.x, startPoint.y],
           ['L', endPoint.x, endPoint.y],
         ];
         // console.log('Cable Length', endPoint.x - startPoint.x);
-        if (cfg.direction === 'RDL') {
+        if (position === 'L') {
           path = [
             ['M', startPoint.x, startPoint.y],
             ['L', startPoint.x + edgeSep, startPoint.y],
             ['L', startPoint.x + edgeSep, startPoint.y + dY],
             ['L', endPoint.x, endPoint.y],
           ];
-        } else if (cfg.direction === 'LDR') {
+        } else if (position === 'F') {
           path = [
             ['M', startPoint.x, startPoint.y],
             ['L', startPoint.x - edgeSep, startPoint.y],
@@ -63,41 +52,68 @@ export const registerCableEdge = () => {
           attrs: {
             path,
             stroke: (cfg.cableColor as string) || '#dfdfdf',
-            lineWidth: 8,
+            lineWidth: isRealCable ? 8 : 3,
+            cursor: 'pointer',
           },
+          name: NAME_CABLE,
         });
         line.set('className', CLS_SHAPE);
         return line;
       },
       drawLabel(cfg, group) {
+        const sourceNode: any = cfg.sourceNode;
+        const sourceModel = sourceNode.get('model');
+        const targetNode: any = cfg.targetNode;
+        const targetModel = targetNode.get('model');
+        const position = targetNode.get('model')?.position;
+        const isRealCable = cfg.cableType === 'R';
         let cableLabel = group.findByClassName('edge-cable-text');
         const startPoint = cfg.startPoint;
         const endPoint = cfg.endPoint;
         const shape = group.get('children')[0];
-        const midPoint = shape.getPoint(0.5);
+        const midPoint = shape.getPoint(0.5) || { x: 0, y: 0 };
         const rectColor = '#dfdfdf';
-
-        // add start arrow and end arrow
-        group.addShape('rect', {
-          attrs: {
-            width: arrowWidth,
-            height: arrowHeight,
-            fill: COLORS.CABLE_TEXT_BG,
-            stroke: rectColor,
-            x: this.calcArrowOffset(cfg, true),
-            y: startPoint.y - (1 / 2) * arrowHeight,
-          },
-        });
-        group.addShape('rect', {
-          attrs: {
-            width: arrowWidth,
-            height: arrowHeight,
-            fill: COLORS.CABLE_TEXT_BG,
-            stroke: rectColor,
-            x: this.calcArrowOffset(cfg, false),
-            y: endPoint.y - (1 / 2) * arrowHeight,
-          },
-        });
+        if (isRealCable) {
+          // add start arrow and end arrow
+          const startX = this.calcArrowOffset(
+            cfg,
+            true,
+            position,
+            sourceModel,
+            targetModel
+          );
+          // console.log('sx', startX);
+          group.addShape('rect', {
+            attrs: {
+              width: arrowWidth,
+              height: arrowHeight,
+              fill: COLORS.CABLE_TEXT_BG,
+              stroke: rectColor,
+              x: startX,
+              y: startPoint.y - (1 / 2) * arrowHeight,
+            },
+            name: NAME_CABLE_END,
+          });
+          const endX = this.calcArrowOffset(
+            cfg,
+            false,
+            position,
+            sourceModel,
+            targetModel
+          );
+          // console.log('ex', endX);
+          group.addShape('rect', {
+            attrs: {
+              width: arrowWidth,
+              height: arrowHeight,
+              fill: COLORS.CABLE_TEXT_BG,
+              stroke: rectColor,
+              x: endX,
+              y: endPoint.y - (1 / 2) * arrowHeight,
+            },
+            name: NAME_CABLE_END,
+          });
+        }
         const defaultConfig = {} as any;
         const labelCfg = deepMix(
           {},
@@ -111,29 +127,29 @@ export const registerCableEdge = () => {
         const targetY = startPoint.y + dY / 3;
 
         const style = this.getLabelStyleByPosition(cfg, labelCfg, group);
-        if (cableLabel) {
-          cableLabel['attrs'] = {
-            ...cableLabel['attrs'],
-            ...{ ...labelCfg, ...style },
-          };
-        } else {
-          if (['RDL', 'LDR'].includes(cfg.direction as string)) {
-            console.log(cfg);
+        if (isRealCable) {
+          if (cableLabel) {
+            cableLabel['attrs'] = {
+              ...cableLabel['attrs'],
+              ...{ ...labelCfg, ...style },
+            };
+          } else {
+            cableLabel = group.addShape('text', {
+              attrs: {
+                ...labelCfg,
+                ...style,
+                ...this.calcLabelOffset(cfg, group),
+                text: cfg.label,
+                textAlign: 'start',
+                textBaseline: 'middle',
+              },
+              name: NAME_CABLE_LABEL,
+            });
           }
-          cableLabel = group.addShape('text', {
-            attrs: {
-              ...labelCfg,
-              ...style,
-              ...this.calcLabelOffset(cfg, group),
-              text: cfg.label,
-              textAlign: 'start',
-              textBaseline: 'middle',
-            },
-          });
+          cableLabel.set('className', `${CLS_SHAPE}_label`);
+          this.drawLabelBg(cfg, group, cableLabel);
+          cableLabel.toFront();
         }
-        cableLabel.set('className', CLS_SHAPE);
-        this.drawLabelBg(cfg, group, cableLabel);
-        cableLabel.toFront();
         return group as any;
       },
       getPath(points) {
@@ -176,40 +192,44 @@ export const registerCableEdge = () => {
         const model = cfg || self.get('model');
         this.drawLabel(model, group);
       },
-      calcArrowOffset(cfg, start) {
+      calcArrowOffset(cfg, start, position, sourceModel, targetModel) {
         const direction = cfg.direction;
         const reverse = cfg.odd ?? false;
         const startPoint = cfg.startPoint;
         const endPoint = cfg.endPoint;
         if (start) {
-          return direction === 'LDR' || reverse
-            ? startPoint.x - arrowWidth
-            : startPoint.x;
+          if (sourceModel.rowNum % 2 === 0) {
+            return startPoint.x;
+          } else {
+            return startPoint.x - arrowWidth;
+          }
         } else {
-          return direction === 'RDL' || reverse
-            ? endPoint.x
-            : endPoint.x - arrowWidth;
+          if (targetModel.rowNum % 2 === 0) {
+            return endPoint.x - arrowWidth;
+          } else {
+            return endPoint.x;
+          }
         }
       },
       calcLabelOffset(cfg, group) {
+        const sPosition = cfg.sourceNode.get('model').position;
+        const tPosition = cfg.targetNode.get('model').position;
         const shape = group.get('children')[0];
         const midPoint = shape.getPoint(0.5);
-        const isRDL = cfg.direction === 'RDL';
-        const isLDR = cfg.direction === 'LDR';
         const startPoint = cfg.startPoint;
         const endPoint = cfg.endPoint;
         const dY = endPoint.y - startPoint.y;
         const offsetY = startPoint.y + dY / 3;
         const offsetX = startPoint.x - 40;
-        if (isRDL || isLDR) {
-          return {
-            x: offsetX,
-            y: offsetY,
-          };
-        } else {
+        if (tPosition === 'L' || tPosition === 'F' || sPosition == null) {
           return {
             x: midPoint.x - 40,
             y: midPoint.y + 80,
+          };
+        } else {
+          return {
+            x: offsetX,
+            y: offsetY,
           };
         }
       },
@@ -236,9 +256,10 @@ export const registerCableEdge = () => {
           style.y = cfg.endPoint.y + refY ? refY : 0;
           return style;
         }
-        const autoRotate = isNil(labelCfg.autoRotate)
-          ? this.labelAutoRotate
-          : labelCfg.autoRotate;
+        const autoRotate =
+          labelCfg.autoRotate == null
+            ? this.labelAutoRotate
+            : labelCfg.autoRotate;
         const offsetStyle = Util.getLabelPosition(
           pathShape as any,
           pointPercent,
@@ -253,6 +274,26 @@ export const registerCableEdge = () => {
         return style;
       }, // 获取文本对齐方式
       update: undefined,
+      setState(name, value, item) {
+        const group = item.getContainer();
+        const shape = group
+          .get('children')
+          .find((_) => _.get('name') === NAME_CABLE);
+        // if (name === 'active') {
+        //   if (value) {
+        //     shape.attr('cursor', 'pointer');
+        //   } else {
+        //     shape.attr('cursor', 'default');
+        //   }
+        // }
+        if (name === 'selected') {
+          if (value) {
+            shape.attr('lineWidth', 20);
+          } else {
+            shape.attr('lineWidth', 8);
+          }
+        }
+      },
     },
     'polyline'
   );
