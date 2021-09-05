@@ -1,6 +1,6 @@
 import { registerNode } from '@antv/g6';
-import { findSVG } from '@ngux/shared/path-view/utils';
-import { isEmpty } from '@opi/util';
+// import { findSVG } from '@ngux/shared/path-view/utils';
+// import { isEmpty } from '@opi/util';
 import { mix } from '@antv/util';
 
 enum PANEL_COLOR {
@@ -14,14 +14,40 @@ enum FONT_COLOR {
   DARK = '#000000',
 }
 
-const nodeWidth = 250;
-const nodeHeight = 200 + 2;
+// 2nd Edition
+
+// Panel Attributes
+const PanelHeightBase = 25;
+const PanelHeightMini = 20;
+const PanelHeightImage = 60;
+const PanelWidthPort = 90;
+const ImageHeightMax = 40;
+const ImageWidthMax = 160;
+const PanelOffsetYMini = PanelHeightMini / 2;
+
+// Node Attributes
+const NodeWidthMin = 200;
+const NodeWidthMax = 400;
+
+const BaseFontColor = '#016FA0';
+
+const PanelShapeStartX = -1;
+
+//  Calculated attributes
+// const PanelPortGap = NodeWidthMin - 2 * PanelWidthPort;
+
+// 1st Edition
+
+const nodeMinWidth = 200;
+// const nodeWidth = nodeMinWidth;
+const nodeHeight = 80 + 2; // (20 + 40 + 20)
 const panelFontSize = 12;
 const panelPortMiddleSpace = 20;
-const panelPortWidth = (nodeWidth - panelPortMiddleSpace) / 2;
-const panelModelImageHeight = 100;
-const panelBaseHeight = 20;
-const panelBaseWidth = nodeWidth - 2;
+const panelPortWidth = PanelWidthPort; // (nodeWidth - panelPortMiddleSpace) / 2;
+const panelModelImageHeight = 40;
+const imageOffsetY = 100 - panelModelImageHeight;
+const panelBaseHeight = PanelHeightBase; // 20;
+// const panelBaseWidth = nodeMinWidth + 2;
 const panelFontColor = FONT_COLOR.WHITE;
 const panelFontColorDark = FONT_COLOR.DARK;
 const panelFillColor = FONT_COLOR.WHITE;
@@ -29,6 +55,7 @@ const panelStrokeColor = FONT_COLOR.WHITE;
 const panelBaseFillColor = '#1b75c4';
 const panelTextLineHeight = 20;
 const panelTextYOffset = panelBaseHeight / 2;
+const panelPortTextYOffset = PanelHeightMini / 2;
 const panelTextIndent = 2;
 const containerStrokeColor = '#1b75c4';
 const panelTopRectFillColor = PANEL_COLOR.DARK_BLUE;
@@ -41,6 +68,8 @@ export const registerDeviceNode = () =>
     'd13n-node',
     {
       drawShape: function drawShape(cfg, group) {
+        const nodeWidth = cfg.nodeBaseWidth as number;
+        const panelBaseWidth = nodeWidth + 2;
         const typeId = cfg.typeId; // '822c1b1a-ced5-11e4-b3c2-000c294c98b1'; // cfg.modelId
         // const style = this.getShapeStyle(cfg);
 
@@ -63,8 +92,8 @@ export const registerDeviceNode = () =>
 
           group.addShape('rect', {
             attrs: {
-              x: 1,
-              y: 1,
+              x: PanelShapeStartX,
+              y: -1 - 2 * panelBaseHeight,
               width: panelBaseWidth,
               height: panelBaseHeight,
               fill: panelTopRectFillColor,
@@ -77,7 +106,7 @@ export const registerDeviceNode = () =>
           group.addShape('text', {
             attrs: {
               textBaseline: 'middle',
-              y: panelTextYOffset,
+              y: -1 - panelBaseHeight - panelTextYOffset,
               x: panelTextIndent,
               lineHeight: panelTextLineHeight,
               text: cfg.location ?? '',
@@ -92,8 +121,8 @@ export const registerDeviceNode = () =>
            */
           group.addShape('rect', {
             attrs: {
-              x: 1,
-              y: 1 + panelBaseHeight * 1,
+              x: PanelShapeStartX,
+              y: -1 - panelBaseHeight * 1,
               width: panelBaseWidth,
               height: panelBaseHeight,
               fill: panelMiddleRectFillColor,
@@ -106,7 +135,7 @@ export const registerDeviceNode = () =>
           group.addShape('text', {
             attrs: {
               textBaseline: 'middle',
-              y: panelBaseHeight * 1 + panelTextYOffset,
+              y: -1 - panelTextYOffset,
               x: panelTextIndent,
               lineHeight: panelTextLineHeight,
               text: cfg.container ?? '',
@@ -132,10 +161,10 @@ export const registerDeviceNode = () =>
           group.addShape('text', {
             attrs: {
               textBaseline: 'middle',
-              y: panelBaseHeight * 2 + panelTextYOffset,
-              x: panelTextIndent * 10,
+              y: PanelOffsetYMini,
+              x: panelTextIndent,
               lineHeight: panelTextLineHeight,
-              text: cfg.deviceName ?? '',
+              text: cfg.deviceName + '' + cfg.id ?? '',
               fill: panelFontColorDark,
               fontSize: panelFontSize,
             },
@@ -147,41 +176,41 @@ export const registerDeviceNode = () =>
            */
           group.addShape('rect', {
             attrs: {
-              x: 0,
-              y: 1 + panelBaseHeight * 3,
-              width: nodeWidth,
-              height: panelModelImageHeight,
+              x: (nodeWidth - ImageWidthMax) / 2,
+              y: PanelHeightMini,
+              width: ImageWidthMax,
+              height: ImageHeightMax,
             },
             name: 'panel-device-type-image',
           });
-          // group.addShape('image', {
+          group.addShape('image', {
+            attrs: {
+              x: (nodeWidth - ImageWidthMax) / 2,
+              y: PanelHeightMini,
+              img: 'assets/models/junction-box.jpeg',
+              width: ImageWidthMax,
+              height: ImageHeightMax,
+            },
+          });
+          // group.addShape('dom', {
           //   attrs: {
           //     x: 0,
           //     y: panelBaseHeight * 3,
-          //     img: 'assets/models/junction-box.jpeg',
+          //     html: findSVG(`ux-${typeId}`),
           //     width: nodeWidth,
           //     height: panelModelImageHeight,
           //   },
           // });
-          group.addShape('dom', {
-            attrs: {
-              x: 0,
-              y: panelBaseHeight * 3,
-              html: findSVG(`ux-${typeId}`),
-              width: nodeWidth,
-              height: panelModelImageHeight,
-            },
-          });
           if (cfg.sPort) {
             group.addShape('rect', {
               attrs: {
                 x: 1,
-                y: 1 + panelBaseHeight * 3 + panelModelImageHeight,
+                y: nodeHeight - PanelHeightMini - 1,
                 width: panelPortWidth,
-                height: panelBaseHeight,
+                height: PanelHeightMini,
                 stroke: panelStrokeColor,
                 fill: panelMiddleRectFillColor,
-                radius: r
+                radius: r,
               },
               name: 'panel-port-left',
             });
@@ -189,10 +218,7 @@ export const registerDeviceNode = () =>
               attrs: {
                 textBaseline: 'middle',
                 textAlign: 'center',
-                y:
-                  panelBaseHeight * 3 +
-                  panelModelImageHeight +
-                  panelTextYOffset,
+                y: nodeHeight - PanelHeightMini - 1 + panelPortTextYOffset,
                 x: panelPortWidth / 2,
                 lineHeight: panelTextLineHeight,
                 text: cfg.sPort,
@@ -205,13 +231,13 @@ export const registerDeviceNode = () =>
           if (cfg.dPort) {
             group.addShape('rect', {
               attrs: {
-                x: panelPortWidth + panelPortMiddleSpace - 1,
-                y: 1 + panelBaseHeight * 3 + panelModelImageHeight,
+                x: nodeWidth - PanelWidthPort - 1,
+                y: nodeHeight - PanelHeightMini - 1,
                 width: panelPortWidth,
-                height: panelBaseHeight,
+                height: PanelHeightMini,
                 stroke: panelStrokeColor,
                 fill: panelMiddleRectFillColor,
-                radius: r
+                radius: r,
               },
               name: 'panel-port-right',
             });
@@ -219,10 +245,7 @@ export const registerDeviceNode = () =>
               attrs: {
                 textBaseline: 'middle',
                 textAlign: 'center',
-                y:
-                  panelBaseHeight * 3 +
-                  panelModelImageHeight +
-                  panelTextYOffset,
+                y: nodeHeight - PanelHeightMini - 1 + panelPortTextYOffset,
                 x: nodeWidth - panelPortWidth / 2, // x=200相当于x=0
                 lineHeight: panelTextLineHeight,
                 text: cfg.dPort,
@@ -234,10 +257,10 @@ export const registerDeviceNode = () =>
           }
           group.addShape('rect', {
             attrs: {
-              x: 1,
-              y: 1 + panelBaseHeight * 4 + panelModelImageHeight,
+              x: PanelShapeStartX,
+              y: 1 + nodeHeight,
               width: panelBaseWidth,
-              height: panelBaseHeight,
+              height: PanelHeightBase,
               fill: panelBottomRectFillColor,
               stroke: panelStrokeColor,
               radius: r,
@@ -248,7 +271,7 @@ export const registerDeviceNode = () =>
             attrs: {
               textBaseline: 'middle',
               textAlign: 'center',
-              y: panelBaseHeight * 4 + panelModelImageHeight + panelTextYOffset,
+              y: nodeHeight + panelTextYOffset,
               x: nodeWidth / 2,
               lineHeight: panelTextLineHeight,
               text: cfg.deviceType,
@@ -257,11 +280,6 @@ export const registerDeviceNode = () =>
             },
             name: 'text-device-type',
           });
-          // if (style.img || style.html) {
-          //   group.addShape(style.html ? 'dom' : 'image', {
-          //     attrs: { ...style, style: 'pointer-events: none;' }, // { pointerEvents: 'none' }
-          //   });
-          // }
         }
         return shape;
       },
