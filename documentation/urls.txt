@@ -1,0 +1,29 @@
+ - MVC framework
+	https://blog.chartbeat.com/2013/06/04/great-hack-writing-an-mvc-framework-from-scratch/
+ - share(), publishReplay(), refCount()
+	https://itnext.io/the-magic-of-rxjs-sharing-operators-and-their-differences-3a03d699d255
+ - promisify()
+	https://2ality.com/2017/05/util-promisify.html
+ - typescript book
+	https://github.com/basarat/typescript-book
+ - organize svgs
+	https://itnext.io/easy-way-to-organize-your-icons-using-svgs-in-angular-5-f35333d0b442
+ - batch file processing
+	https://www.yaoyuyang.com/2017/01/20/nodejs-batch-file-processing.html
+	https://stackoverflow.com/questions/10049557/reading-all-files-in-a-directory-store-them-in-objects-and-send-the-object#
+ - angular resolver
+	https://medium.com/@knoldus/resolving-worries-beforehand-with-angular-resolver-46c1724b05a1
+	https://betterprogramming.pub/understanding-angular-resolver-what-was-the-problem-before-using-resolver-and-why-we-need-it-7502554ab7a3
+ - Rust
+	https://doc.rust-lang.org/beta/book/index.html
+ - Httpd
+	https://httpd.apache.org/docs/2.4/mod/mod_authz_core.html#require
+ - Medium Posts
+	https://medium.com/javascript-scene/the-two-pillars-of-javascript-pt-2-functional-programming-a63aa53a41a4
+	https://medium.com/@thebabscraig/javascript-design-patterns-part-1-the-factory-pattern-5f135e881192
+ - Books
+	Programming JavaScript Applications O'Reilly
+ - Deep Clone
+	https://stackoverflow.com/questions/122102/what-is-the-most-efficient-way-to-deep-clone-an-object-in-javascript
+ - Other Posts
+	https://davidwalsh.name/javascript-objects
