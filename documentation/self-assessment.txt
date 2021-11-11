@@ -1,0 +1,8 @@
+There were a few unforgetable experiences when upgrading systems for out customers.
+When upgrading system for PPG, the upgrade failed at first time because the disk of customer's server was full.
+Later on they extended  their disk's capacity and the upgrade was carried on and succeeded in the end. 
+After the support, I gave feedback to our dev-team and they updated the pre-check script to avoid such kind of problems for future upgrades.
+Another support took our three days to upgrade system for BNPP, in which I learned a lot and realized there were still quite a few problems to be solved in the upcoming days.
+
+I've got a few expectations of myself in the next year. Firstly, I would like to keep working on coming up with test cases of better test coverage.
+Additionally, I will practise myself to provide more professional support for our customers either when dealing with support tickets or on Webex.
