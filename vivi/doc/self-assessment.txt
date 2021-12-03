@@ -1,0 +1,48 @@
+Module	Task	Datetime	Version
+Licence Portal	　	　	　
+　	1. Take in charge of the UI development	　	6.5.0
+Server Admin Enhancements	　	　	　
+　	1. Take in charge of the UI development	　	6.5.0, 6.6.0
+Campus	　	　	6.6.0
+　	1. Take in charge of the UI development	　	　
+Fiber Management	　	　	6.6.0, 6.7.0
+　	1. Take in charge of the Fiber Documentation UI development	　	　
+Smart Alarming	　	　	6.6.0
+　	1. Take in charge of the UI development	　	　
+RDG 2.0	　	　	6.6.0
+　	1. Take in charge of the RDG Server Management UI development	　	　
+Multi-factor authentication feature	　	　	6.6.0
+　	1. Take in charge of the UI development	　	　
+Active Directory and CSR	　	　	6.5.0, 6.6.0
+　	1. Take in charge of the AD/CSR UI development	　	　
+Workflow	　	　	6.5.0
+　	1. Take in charge of Quick New Project UI development	　	　
+PDU/Panel/Breaker Enhancements	　	　	6.6.0
+　	1. Take in charge of the UI development	　	　
+Monitoring Enhancements	　	　	6.5.0, 6.6.0
+　	1. Take in charge of the templates enhancements UI development	　	　
+　	2. Take in charge of the triggers enhancements UI development	　	　
+　	3. Take in charge of the actions enhancements UI development	　	　
+Cable Tray Deployment	　	　	6.5.0, 6.6.0
+　	1. Participate in the cable tray deployment UI development	　	　
+Network Topology	　	　	6.6.0
+　	1. Take in charge of the network layers UI development	　	　
+Import Central/Export Devices Enhancements	　	　	6.6.0
+　	1. Take in charge of the UI development	　	　
+List FILTERS Enhancements	　	　	6.6.0
+　	1. Take in charge of the UI development	　	　
+Inventory Enhancements	　	　	6.6.0
+　	1. Take in charge of the UI development	　	　
+Rack Dashboard/Capacity Enhancements	　	　	6.5.0
+　	1. Take in charge of the UI development	　	　
+Port Mapping Enhancements	　	　	6.5.0
+　	1. Take in charge of the UI development	　	　
+Rack Audit Enhancements	　	　	6.5.0,6.7.0
+　	1. Take in charge of the UI development	　	　
+Mass Configuration Upload	　	　	6.5.0
+　	1. Take in charge of the UI development	　	　
+System Settings Enhancements	　	　	6.5.0, 6.6.0
+　	1. Take in charge of the UI development	　	　
+UI Style Enhancements	　	　	6.5.0
+　	1. Take in charge of the UI development	　	　
+
